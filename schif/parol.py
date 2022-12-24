@@ -2,6 +2,8 @@ from cryptography.fernet import Fernet
 
 import pathlib
 
+from schif.context import SQLite
+
 class Parol:
 
     def __init__(self, data_directory: str = "./data", key_filename: str = "KEY", password_filename: str = "passwords.db") -> None:
