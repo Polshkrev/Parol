@@ -1,2 +1,2 @@
 # Parol
- A password manager.
+A password manager.
