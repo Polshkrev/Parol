@@ -6,7 +6,7 @@ from schif.context import SQLite, sqlite3
 
 class Parol:
 
-    def __init__(self, data_directory: str = "./data", key_filename: str = "KEY", password_filename: str = "passwords.db") -> None:
+    def __init__(self, data_directory: str = "./data", key_filename: str = "KEY.key", password_filename: str = "passwords.db") -> None:
         self.key_file = pathlib.Path(f"{data_directory}/{key_filename}").absolute()
         self.password_file = pathlib.Path(f"{data_directory}/{password_filename}").absolute()
         if not self.password_file.parent.exists():
