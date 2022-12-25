@@ -3,20 +3,20 @@ import utils
 import os
 
 MENU = """(1) Create a new key
-    (2) Load an existing password file
-    (3) Add a new password
-    (4) Get a password
-    (5) Update password directory
-    (6) Update key directory
-    (7) Remove a password
-    (8) Update password
-    (c) Clear the screen
-    (q) Quit"""
+(2) Load an existing password file
+(3) Add a new password
+(4) Get a password
+(5) Update password directory
+(6) Update key directory
+(7) Remove a password
+(8) Update password
+(c) Clear the screen
+(q) Quit"""
 
 def run(manager: schif.Parol, logger: utils.Logger):
     logger.log("Application started.")
+    print(MENU)
     while True:
-        print(MENU)
         choice = input(">> ").strip()
         match choice:
             case "1":
