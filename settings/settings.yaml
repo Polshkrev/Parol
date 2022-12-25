@@ -1,0 +1,3 @@
+key_filename: KEY
+passwords_filename: passwords.db
+data_directory: ./data

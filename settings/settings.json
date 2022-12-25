@@ -1,0 +1,5 @@
+{
+    "key_filename": "KEY",
+    "password_filename": "passwords.db",
+    "data_directory": "./data"
+}
