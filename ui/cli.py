@@ -15,8 +15,8 @@ MENU = """(1) Create a new key
 
 def run(manager: schif.Parol, logger: utils.Logger):
     logger.log("Application started.")
-    print(MENU)
     while True:
+        print(MENU)
         choice = input(">> ").strip()
         match choice:
             case "1":
