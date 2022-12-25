@@ -11,6 +11,10 @@ class Parol:
         self.password_file = pathlib.Path(f"{data_directory}/{password_filename}").absolute()
         if not self.password_file.parent.exists():
             self.password_file.parent.mkdir()
+            if not self.password_file.exists():
+                self._create_table()
+        elif not self.password_file.exists():
+            self._create_table()
         elif not self.key_file.exists():
             self.create_key()
         else:
