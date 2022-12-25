@@ -10,6 +10,7 @@ MENU = """(1) Create a new key
 (6) Update key directory
 (7) Remove a password
 (8) Update password
+(9) Dump passwords to file
 (c) Clear the screen
 (q) Quit"""
 
@@ -58,6 +59,11 @@ def run(manager: schif.Parol, logger: utils.Logger):
                 password = input("New password: ").strip()
                 manager.update_password(site, password)
                 logger.log(f"Password for site {site} has been updated.", utils.LoggingLevel.INFO)
+            case "9":
+                key = manager.load_key()
+                logger.log("Key file loaded.")
+                manager.dump_passwords_to_file(key, manager.load_passwords(key))
+                logger.log("Passwords from memory added to the database.")
             case "c":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 continue
