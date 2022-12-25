@@ -13,6 +13,7 @@ YAMLReader = yaml.safe_load
 class Settings:
     key_filename: str
     password_filename: str
+    log_directory: str
     data_directory: str
 
 def read(filepath: str, filename: str, filetype: str = "json", reader: Reader = JSONReader) -> Settings:

@@ -1,3 +1,4 @@
 key_filename: KEY
 passwords_filename: passwords.db
+log_directory: ./logs
 data_directory: ./data
