@@ -2,5 +2,6 @@
     "key_filename": "KEY",
     "password_filename": "passwords.db",
     "log_directory": "./logs",
-    "data_directory": "./data"
+    "data_directory": "./data",
+    "verbose": true
 }

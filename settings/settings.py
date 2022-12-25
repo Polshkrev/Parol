@@ -15,6 +15,7 @@ class Settings:
     password_filename: str
     log_directory: str
     data_directory: str
+    verbose: bool
 
 def read(filepath: str, filename: str, filetype: str = "json", reader: Reader = JSONReader) -> Settings:
     file = f"{filepath}/{filename}.{filetype}"
