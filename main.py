@@ -13,4 +13,5 @@ def main(settings: config.Settings) -> None:
     ui.run_cli(manager, logger)
 
 if __name__ == "__main__":
-    setitngs = config.read(filepath="./settings", filename="settings", filetype="yaml", reader=config.YAMLReader)
+    settings = config.read(filepath="./settings", filename="settings", filetype="yaml", reader=config.YAMLReader)
+    main(settings)
