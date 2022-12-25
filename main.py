@@ -4,7 +4,7 @@ import ui
 import setup
 
 def main(settings: config.Settings) -> None:
-    logger = setup.logger(settings.log_directory, verbose=True)
+    logger = setup.logger(settings.log_directory, verbose=settings.verbose)
     manager = schif.Parol(
         data_directory=settings.data_directory,
         key_filename=settings.key_filename,
