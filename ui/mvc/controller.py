@@ -31,5 +31,5 @@ class Controller:
     def start(self) -> None:
         for title, text in self.database.load_passwords(self.database.load_key()).items():
             self.view.add_card(title, text)
-        self.view.setup()
+        self.view.setup(self)
         self.view.start_main_loop()
