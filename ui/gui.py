@@ -80,16 +80,15 @@ class GUI:
 
     root: ctk.CTk
     settings: settings.Settings
-    controller: Controller
     root_width: int = 856
     root_height: int = 482
     cards: list[Card] = field(default_factory=list)
 
-    def setup(self) -> None:
+    def setup(self, controller: Controller) -> None:
         self.root.title("Parol")
         self.root.geometry(f"{self.root_width}x{self.root_height}")
 
-        main_btn = ctk.CTkButton(self.root, text="+", hover=False, width=50, command=lambda: _paint_add_screen(self.root, self.controller))
+        main_btn = ctk.CTkButton(self.root, text="+", hover=False, width=50, command=lambda: _paint_add_screen(self.root, controller))
         main_btn.place(anchor=ctk.NE, relx=1, x=-5, y=5)
         self._paint_cards()
 

@@ -1,10 +1,10 @@
 from ui.components.card import Card
-
+from ui.mvc.controller import Controller
 import typing
 
 class View(typing.Protocol):
 
-    def setup(self) -> None:
+    def setup(self, controller: Controller) -> None:
         """Sets up the view based on a Controller."""
 
     def start_main_loop(self) -> None:
