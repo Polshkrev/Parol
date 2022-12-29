@@ -28,7 +28,7 @@ class GUI:
     def add_card(self, title: str, text: str) -> None:
         for card in self.cards:
             card.clear()
-        card = Card(self.root, "./ui/assets/black.png", "./ui/assets/white.png", title, text)
+        card = Card(self.root, self.settings.black_image, self.settings.white_image, title, text)
         self.cards.append(card)
         self._paint_cards()
 
