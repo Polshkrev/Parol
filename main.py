@@ -2,6 +2,7 @@ import settings as config
 import schif
 import ui
 import setup
+import customtkinter as ctk
 
 def main(settings: config.Settings) -> None:
     logger = setup.logger(settings.log_directory, verbose=settings.verbose)
@@ -10,7 +11,11 @@ def main(settings: config.Settings) -> None:
         key_filename=settings.key_filename,
         password_filename=settings.password_filename
     )
-    ui.run_cli(manager, logger)
+    root = ctk.CTk()
+    card = ui.Card(root, settings.black_image, settings.white_image, text="password")
+    gui = ui.GUI(root, settings, cards=[card])
+    gui.setup()
+    # ui.run_cli(manager, logger)
 
 if __name__ == "__main__":
     settings = config.read(filepath="./settings", filename="settings", filetype="yaml", reader=config.YAMLReader)
