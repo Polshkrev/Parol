@@ -1,0 +1,5 @@
+appearance: System
+theme: dark-blue
+geometry: 856x482
+black_image: ./ui/assets/black.png
+white_image: ./ui/assets/white.png

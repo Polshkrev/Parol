@@ -1,9 +1,4 @@
 {
-    "key_filename": "KEY.key",
-    "password_filename": "passwords.db",
-    "log_directory": "./logs",
-    "data_directory": "./data",
-    "verbose": true,
     "appearance": "System",
     "theme": "dark-blue",
     "geometry": "856x482",
