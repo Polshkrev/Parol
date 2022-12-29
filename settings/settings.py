@@ -15,6 +15,9 @@ class Settings:
     password_filename: str
     log_directory: str
     data_directory: str
+    appearance: str
+    theme: str
+    geometry: str
     verbose: bool
     black_image: str
     white_image: str
