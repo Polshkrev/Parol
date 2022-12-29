@@ -5,9 +5,8 @@ import ui
 
 import customtkinter as ctk
 
-def _on_delete(root: ctk.CTk, gui: ui.GUI, logger: utils.Logger) -> None:
+def _on_delete(root: ctk.CTk, logger: utils.Logger) -> None:
     root.quit()
-    gui.remove_cards()
     logger.log("Application ended.")
 
 def run(settings: config.Settings, database: schif.Parol, logger: utils.Logger) -> None:
@@ -21,6 +20,6 @@ def run(settings: config.Settings, database: schif.Parol, logger: utils.Logger) 
 
     gui = ui.GUI(root, settings, database, int(root_width), int(root_height))
 
-    root.protocol("WM_DELETE_WINDOW", lambda: _on_delete(root, gui, logger))
+    root.protocol("WM_DELETE_WINDOW", lambda: _on_delete(root, logger))
 
     gui.start()
