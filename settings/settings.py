@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 
 import typing
 
+import os
+
 import json
 import yaml
 
@@ -23,14 +25,12 @@ class Settings:
     password_filename: str
     log_directory: str
     data_directory: str
-    appearance: str
-    theme: str
-    geometry: str
     verbose: bool
-    private_file: str = field(default_factory=str, repr=False)
+    private_file: str = field(repr=False)
 
     def __post_init__(self) -> None:
-        self.configuration = self._get_config(reader=JSONReader)
+        reader = JSONReader if os.path.split(self.private_file)[-1] == '.json' else YAMLReader
+        self.configuration = self._get_config(reader)
 
     def _get_config(self, reader: Reader = JSONReader) -> Configuration:
         with open(self.private_file, "r", encoding="utf-8") as f:
