@@ -16,6 +16,8 @@ class Settings:
     log_directory: str
     data_directory: str
     verbose: bool
+    black_image: str
+    white_image: str
 
 def read(filepath: str, filename: str, filetype: str = "json", reader: Reader = JSONReader) -> Settings:
     file = f"{filepath}/{filename}.{filetype}"
