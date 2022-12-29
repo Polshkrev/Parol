@@ -2,7 +2,6 @@ import settings as config
 import schif
 import ui
 import setup
-import customtkinter as ctk
 
 def main(settings: config.Settings) -> None:
     logger = setup.logger(settings.log_directory, verbose=settings.verbose)
