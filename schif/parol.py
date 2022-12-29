@@ -13,6 +13,8 @@ class Parol:
             self.password_file.parent.mkdir()
             if not self.password_file.exists():
                 self._create_table()
+            if not self.key_file.exists():
+                self.create_key()
         elif not self.password_file.exists():
             self._create_table()
         elif not self.key_file.exists():
