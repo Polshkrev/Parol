@@ -26,7 +26,7 @@ def _paint_update(x_btn: ctk.CTkButton, copy_button: ctk.CTkButton, copy_image: 
     x_btn.place(anchor=ctk.NW, relx=.005, rely=.03)
     copy_button.configure(require_redraw=True, image=copy_image)
 
-def _update(card: ctk.CTkFrame, x_btn: ctk.CTkButton, copy_button: ctk.CTkButton, copy: PIL.ImageTk.PhotoImage) -> None:
+def _update(root: ctk.CTk, card: ctk.CTkFrame, x_btn: ctk.CTkButton, copy_button: ctk.CTkButton, copy: PIL.ImageTk.PhotoImage) -> None:
     if card.winfo_exists():
         card.bind("<Enter>", lambda _: _paint_update(x_btn, copy_button, copy))
         card.bind("<Leave>", lambda _: _remove_update(x_btn, copy_button))
@@ -42,11 +42,11 @@ def _paint_frame(root: ctk.CTk, width: int = 150, height: int = 150) -> ctk.CTkF
 def _paint_title_label(frame: ctk.CTkFrame, title: str) -> ctk.CTkLabel:
     title_label = ctk.CTkLabel(frame, text=title, width=0)
     title_label.place(relx=(frame.winfo_width() - .5), rely=0, anchor=ctk.N)
-    title_label.configure(font=('Roboto', 10, "bold"))
+    title_label.configure(font=('Roboto', 12, "bold"))
     return title_label
 
 def _paint_copy_button(frame: ctk.CTkFrame, copy_function: typing.Callable[[], None]) -> ctk.CTkButton:
-    copy = ctk.CTkButton(frame, text=None, command=copy_function, fg_color=frame.fg_color, hover_color=frame.fg_color, border_width=0, border=0, width=0, height=0, corner_radius=10) # type: ignore
+    copy = ctk.CTkButton(frame, text=None, command=copy_function, fg_color=frame.fg_color, hover_color=frame.master.fg_color, border_width=0, border=0, width=0, height=0, corner_radius=10) # type: ignore
     copy.place(anchor=ctk.NE, relx=.98, rely=.02)
     return copy
 
@@ -69,6 +69,10 @@ def _load_image(black_image_directory: str, white_image_directory: str) -> PIL.I
 
     return black_image if _get_apearance() == "Light" else white_image
 
+def _remove(card: Card) -> None:
+    # ! see `_paint_x_button` above
+    card.remove()
+
 @dataclass
 class Card:
     root: ctk.CTk
@@ -89,7 +93,7 @@ class Card:
         self.x_button = _paint_x_button(self.frame, remove, self)
         self.frame.grid(row=row, column=index, sticky=ctk.NW, pady=5, padx=5)
         # self.x_button.place(anchor=ctk.NW, relx=.005, rely=.03)
-        _update(self.frame, self.x_button, self.copy_button, self.copy_image)
+        _update(self.root, self.frame, self.x_button, self.copy_button, self.copy_image)
 
     def update_title(self, title: str) -> None:
         """Update the title on the card."""
