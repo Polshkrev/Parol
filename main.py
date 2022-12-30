@@ -12,10 +12,7 @@ def main(settings: config.Settings) -> None:
         password_filename=settings.password_filename
     )
     args = setup.parse()
-    if args.ui not in setup.UI:
-        logger.log("Arguments not valid", utils.LoggingLevel.ERROR)
-        return
-    elif args.ui == "gui":
+    if args.ui == "gui":
         ui.run_gui(settings, manager, logger)
     else:
         ui.run_cli(manager, logger)
