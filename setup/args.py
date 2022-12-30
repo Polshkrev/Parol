@@ -2,6 +2,8 @@ import argparse
 from setup.proto import RuntimeArguments
 import setup.choices
 
+# TODO: Add a factory to seperate creation from use of the UI element
+
 def parse() -> RuntimeArguments:
     parser = argparse.ArgumentParser()
     parser.add_argument("ui", type=str, choices=setup.choices.UI, help="UI the programme will use.")
