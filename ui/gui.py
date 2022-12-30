@@ -8,11 +8,6 @@ import settings as config
 import schif
 from ui.components import Card
 
-def _check_removed(card: Card) -> bool:
-    return card.removed
-
-def _get_removed(cards: list[Card]) -> list[Card]:
-    return [card for card in cards if not _check_removed(card)]
 
 def _validate_not_repeat(cards: list[Card], title: str) -> bool:
     title_search = [card for card in cards if title.lower() == card.title.lower()]

@@ -2,6 +2,7 @@ import settings as config
 import schif
 import ui
 import setup
+import events
 
 def main(settings: config.Settings) -> None:
     logger = setup.logger(settings.log_directory, verbose=settings.verbose)
@@ -10,6 +11,7 @@ def main(settings: config.Settings) -> None:
         key_filename=settings.key_filename,
         password_filename=settings.password_filename
     )
+    events.setup_gui_event_handlers(manager)
     args = setup.parse()
     if args.ui == "gui":
         ui.run_gui(settings, manager, logger)
