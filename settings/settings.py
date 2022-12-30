@@ -10,6 +10,7 @@ import yaml
 Reader = typing.Callable[[typing.TextIO], dict[str, typing.Any]]
 JSONReader = json.load
 YAMLReader = yaml.safe_load
+Folder = "./settings/public"
 
 @dataclass
 class Configuration:
