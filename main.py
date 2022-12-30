@@ -17,5 +17,5 @@ def main(settings: config.Settings) -> None:
         ui.run_cli(manager, logger)
 
 if __name__ == "__main__":
-    settings = config.read(filepath="./settings/public", filename="settings", filetype="yaml", reader=config.YAMLReader)
+    settings = config.read(filepath=config.Folder, filename="settings", filetype="yaml", reader=config.YAMLReader)
     main(settings)
