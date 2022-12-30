@@ -66,6 +66,8 @@ class GUI:
     def setup(self) -> None:
         self.root.title(TITLE)
         self.root.geometry(f"{self.root_width}x{self.root_height}")
+        icon = self.settings.configuration.black_logo if ctk.get_appearance_mode() == "Light" else self.settings.configuration.white_logo
+        self.root.iconbitmap(icon)
 
         main_button = ctk.CTkButton(self.root, text="+", hover=False, width=50, command=lambda: _paint_add_screen(self.root, self))
         main_button.place(anchor=ctk.NE, relx=1, x=-5, y=5)
