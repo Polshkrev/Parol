@@ -8,7 +8,6 @@ import settings as config
 import schif
 from ui.components import Card
 
-
 def _validate_not_repeat(cards: list[Card], title: str) -> bool:
     title_search = [card for card in cards if title.lower() == card.title.lower()]
     if not title_search:
@@ -114,18 +113,3 @@ class GUI:
             if card.removed:
                 continue
             card.setup(index, row)
-
-    def find_card(self, title: str) -> Card | None:
-        for card in self.cards:
-            if title.lower() not in card.title.lower():
-                continue
-            return card
-
-    def get_removed(self) -> list[Card]:
-        return [card for card in self.cards if card.removed]
-
-    def remove_card(self, card: Card) -> None:
-        self.cards.remove(card)
-
-    def get_cards(self) -> list[Card]:
-        return self.cards
