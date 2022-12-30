@@ -4,6 +4,7 @@ import ui
 import setup
 
 def main(settings: config.Settings) -> None:
+    setup.parse()
     logger = setup.logger(settings.log_directory, verbose=settings.verbose)
     manager = schif.Parol(
         data_directory=settings.data_directory,
@@ -11,7 +12,7 @@ def main(settings: config.Settings) -> None:
         password_filename=settings.password_filename
     )
     # ui.run_cli(manager, logger)
-    ui.run_gui(settings, manager, logger)
+    # ui.run_gui(settings, manager, logger)
 
 if __name__ == "__main__":
     settings = config.read(filepath="./settings/public", filename="settings", filetype="yaml", reader=config.YAMLReader)
