@@ -9,6 +9,9 @@ import schif
 from ui.components import Card
 import utils
 
+TITLE = "Parol"
+ADD_TITLE = "Add Password"
+
 def _paint_new_card(root: ctk.CTkToplevel, gui: GUI, site: str, password: str, verify_password: str) -> None:
     utils.post_event("new_card", (root, gui, site, password))
     utils.post_event("add_password", site)
@@ -33,7 +36,7 @@ def _wait_for_input(root: ctk.CTkToplevel, target_button: ctk.CTkButton, *entrie
 
 def _paint_add_screen(screen: ctk.CTk, gui: GUI) -> None:
     add_screen = ctk.CTkToplevel(screen)
-    add_screen.title("Add a Password")
+    add_screen.title(ADD_TITLE)
     add_screen.geometry("250x250")
     add_screen.wm_resizable(False, False)
 
@@ -61,8 +64,10 @@ class GUI:
     cards: list[Card] = field(default_factory=list, repr=False)
 
     def setup(self) -> None:
-        self.root.title("Parol")
+        self.root.title(TITLE)
         self.root.geometry(f"{self.root_width}x{self.root_height}")
+        icon = self.settings.configuration.black_logo if ctk.get_appearance_mode() == "Light" else self.settings.configuration.white_logo
+        self.root.iconbitmap(icon)
 
         main_button = ctk.CTkButton(self.root, text="+", hover=False, width=50, command=lambda: _paint_add_screen(self.root, self))
         main_button.place(anchor=ctk.NE, relx=1, x=-5, y=5)

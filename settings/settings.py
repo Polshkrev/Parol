@@ -19,6 +19,8 @@ class Configuration:
     geometry: str
     black_image: str
     white_image: str
+    black_logo: str
+    white_logo: str
 
 @dataclass
 class Settings:
