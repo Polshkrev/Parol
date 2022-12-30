@@ -26,7 +26,6 @@ class Settings:
     password_filename: str
     log_directory: str
     data_directory: str
-    verbose: bool
     private_file: str = field(repr=False)
 
     def __post_init__(self) -> None:

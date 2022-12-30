@@ -5,16 +5,22 @@ import setup
 import events
 
 def main(settings: config.Settings) -> None:
-    logger = setup.logger(settings.log_directory, verbose=settings.verbose)
     manager = schif.Parol(
         data_directory=settings.data_directory,
         key_filename=settings.key_filename,
         password_filename=settings.password_filename
     )
-    events.setup_gui_event_handlers(manager)
+
     args = setup.parse()
+
+    logger = setup.logger(settings.log_directory, verbose=args.verbose)
+
+    events.setup_log_event_handlers(logger)
+
     if args.ui == "gui":
-        ui.run_gui(settings, manager, logger)
+        events.setup_gui_event_handlers(manager)
+        ui.run_gui(settings, manager)
+        
     else:
         ui.run_cli(manager, logger)
 

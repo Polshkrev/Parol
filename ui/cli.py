@@ -21,7 +21,7 @@ def run(manager: schif.Parol, logger: utils.Logger):
         match choice:
             case "1":
                 manager.create_key()
-                logger.log(f"Key file created at {manager.key_file}")
+                utils.post_event("key_created", manager.key_file)
             case "2":
                 key = manager.load_key()
                 logger.log(f"Key file loaded from {manager.key_file}.")
@@ -62,7 +62,7 @@ def run(manager: schif.Parol, logger: utils.Logger):
                 os.system('cls' if os.name == 'nt' else 'clear')
                 continue
             case "q":
-                logger.log("Application ended.")
+                utils.post_event("application_end", None)
                 print("Bye")
                 break
             case other:
