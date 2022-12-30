@@ -15,6 +15,8 @@ def main(settings: config.Settings) -> None:
 
     logger = setup.logger(settings.log_directory, verbose=args.verbose)
 
+    setup.language(language=settings.language, language_folder=settings.configuration.language_folder)
+
     events.setup_log_event_handlers(logger)
 
     if args.ui == "gui":

@@ -1,4 +1,5 @@
 {
+    "language": "english",
     "key_filename": "KEY.key",
     "password_filename": "passwords.db",
     "log_directory": "./logs",
