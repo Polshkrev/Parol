@@ -13,25 +13,25 @@ MENU = """(1) Create a new key
 (c) Clear the screen
 (q) Quit"""
 
-def run(manager: schif.Parol, logger: utils.Logger):
-    logger.log("Application started.")
+def run(manager: schif.Parol, logger: utils.Logger) -> None:
+    utils.post_event("application_start", "cli")
     while True:
         print(MENU)
         choice = input(">> ").strip()
         match choice:
             case "1":
                 manager.create_key()
-                logger.log(f"Key file created at {manager.key_file}")
+                logger.log("Key file created.")
             case "2":
                 key = manager.load_key()
-                logger.log(f"Key file loaded from {manager.key_file}.")
+                logger.log("Key file loaded.")
                 manager.load_passwords(key)
-                logger.log(f"Passwords loaded from {manager.password_file}.")
+                logger.log("Passwords loaded.")
             case "3":
                 site = input("Enter the site: ")
                 password = input("Enter the password: ")
                 manager.add_password(site, password)
-                logger.log(f"A new password was added to the database for {site}.")
+                utils.post_event("add_password", site)
             case "4":
                 site = input("What site do you want: ")
                 try:
@@ -44,7 +44,7 @@ def run(manager: schif.Parol, logger: utils.Logger):
             case "5":
                 path = input("Enter a path: ").strip()
                 manager.update_password_file(path)
-                logger.log(f"Password file updated to: {path}.")
+                logger.log("Password file updated.")
             case "6":
                 path = input("Enter a path: ").strip()
                 manager.update_key_file(path)
@@ -52,17 +52,17 @@ def run(manager: schif.Parol, logger: utils.Logger):
             case "7":
                 password = input("Enter a site: ")
                 manager.remove_password(password)
-                logger.log(f"Password for site: {password} was removed from the database.", utils.LoggingLevel.INFO)
+                utils.post_event("remove_password", password)
             case "8":
                 site = input("Enter site: ").strip()
                 password = input("New password: ").strip()
                 manager.update_password(site, password)
-                logger.log(f"Password for site {site} has been updated.", utils.LoggingLevel.INFO)
+                utils.post_event("change_password", site)
             case "c":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 continue
             case "q":
-                logger.log("Application ended.")
+                utils.post_event("application_end", None)
                 print("Bye")
                 break
             case other:

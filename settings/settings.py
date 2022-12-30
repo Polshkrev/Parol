@@ -10,6 +10,7 @@ import yaml
 Reader = typing.Callable[[typing.TextIO], dict[str, typing.Any]]
 JSONReader = json.load
 YAMLReader = yaml.safe_load
+Folder = "./settings/public"
 
 @dataclass
 class Configuration:
@@ -25,7 +26,6 @@ class Settings:
     password_filename: str
     log_directory: str
     data_directory: str
-    verbose: bool
     private_file: str = field(repr=False)
 
     def __post_init__(self) -> None:

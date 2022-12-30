@@ -1,0 +1,2 @@
+from events.gui import setup_gui_event_handlers
+from events.logs import setup_log_event_handlers

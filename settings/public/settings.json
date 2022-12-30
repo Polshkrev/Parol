@@ -3,6 +3,5 @@
     "password_filename": "passwords.db",
     "log_directory": "./logs",
     "data_directory": "./data",
-    "private_file": "./settings/private/settings.json",
-    "verbose": true
+    "private_file": "./settings/private/settings.json"
 }
