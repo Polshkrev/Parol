@@ -1,6 +1,5 @@
 import settings as config
 import schif
-import utils
 import ui
 import setup
 
