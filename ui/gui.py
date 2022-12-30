@@ -7,29 +7,11 @@ import customtkinter as ctk
 import settings as config
 import schif
 from ui.components import Card
-
-def _validate_not_repeat(cards: list[Card], title: str) -> bool:
-    title_search = [card for card in cards if title.lower() == card.title.lower()]
-    if not title_search:
-        return True
-    else:
-        return False
-
-def _validate(str1: str, str2: str) -> bool:
-    if str1 != str2:
-        return False
-    elif "script" in str1.lower():
-        return False
-    elif "script" in str2.lower():
-        return False
-    else:
-        return True
-    # return str1 == str2 or "script" not in str1.lower() or "script" not in str2.lower()
+import utils
 
 def _paint_new_card(root: ctk.CTkToplevel, gui: GUI, site: str, password: str, verify_password: str) -> None:
-    gui.add_card(site, password)
-    gui.database.add_password(site, password)
-    root.destroy()
+    utils.post_event("new_card", (root, gui, site, password))
+    utils.post_event("add_password", site)
 
 def _check_length(*entries: ctk.CTkEntry) -> bool:
     len_entries = [entry for entry in entries if len(entry.get()) > 1]
@@ -68,7 +50,6 @@ def _paint_add_screen(screen: ctk.CTk, gui: GUI) -> None:
     sub_btn.pack(ipadx=10, ipady=10, pady=5)
 
     _wait_for_input(add_screen, sub_btn, em, ps, vps)
-
 
 @dataclass
 class GUI:
@@ -112,4 +93,4 @@ class GUI:
             index += 1
             if card.removed:
                 continue
-            card.setup(index, row)
+            card.setup(row, index)
