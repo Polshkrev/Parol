@@ -1,0 +1,7 @@
+en:
+  application_start: "Application started with %{ui_name}."
+  new_password: A new password was added to the database for %{site}.
+  password_update: Password for %{site} has been updated.
+  remove_password: Password for %{site} was removed from the database.
+  application_end: "Application has ended."
+  bye: Bye

@@ -1,4 +1,5 @@
 {
+    "language_folder": "./locale",
     "appearance": "System",
     "theme": "dark-blue",
     "geometry": "856x482",

@@ -1,0 +1,2 @@
+ru:
+  password_not_found: '"%{site}" не найдён в бд.'

@@ -14,6 +14,7 @@ Folder = "./settings/public"
 
 @dataclass
 class Configuration:
+    language_folder: str
     appearance: str
     theme: str
     geometry: str
@@ -24,6 +25,7 @@ class Configuration:
 
 @dataclass
 class Settings:
+    language: str | None
     key_filename: str
     password_filename: str
     log_directory: str
