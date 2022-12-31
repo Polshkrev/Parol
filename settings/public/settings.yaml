@@ -1,4 +1,4 @@
-language: english
+language: null
 key_filename: KEY.key
 password_filename: passwords.db
 log_directory: ./logs

@@ -25,7 +25,7 @@ class Configuration:
 
 @dataclass
 class Settings:
-    language: str
+    language: str | None
     key_filename: str
     password_filename: str
     log_directory: str

@@ -4,3 +4,4 @@ ru:
   password_update: Пароль для "%{site}" обновлен.
   remove_password: Пароль для "%{site}" удален из бд.
   application_end: Программа закончилась.
+  bye: пока-пока

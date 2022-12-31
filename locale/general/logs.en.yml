@@ -4,3 +4,4 @@ en:
   password_update: Password for %{site} has been updated.
   remove_password: Password for %{site} was removed from the database.
   application_end: "Application has ended."
+  bye: Bye
