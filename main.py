@@ -5,13 +5,14 @@ import setup
 import events
 
 def main(settings: config.Settings) -> None:
+    args = setup.parse()
+
     manager = schif.Parol(
         data_directory=settings.data_directory,
         key_filename=settings.key_filename,
         password_filename=settings.password_filename
     )
 
-    args = setup.parse()
 
     logger = setup.logger(settings.log_directory, verbose=args.verbose)
 
