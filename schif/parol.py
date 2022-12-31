@@ -15,9 +15,9 @@ class Parol:
                 self._create_table()
             if not self.key_file.exists():
                 self.create_key()
-        elif not self.password_file.exists():
+        if not self.password_file.exists():
             self._create_table()
-        elif not self.key_file.exists():
+        if not self.key_file.exists():
             self.create_key()
         else:
             self.load_passwords(self.load_key())
