@@ -2,10 +2,10 @@ from dataclasses import dataclass, field
 
 import typing
 
-import os
-
 import json
 import yaml
+
+import os
 
 Reader = typing.Callable[[typing.TextIO], dict[str, typing.Any]]
 JSONReader = json.load
