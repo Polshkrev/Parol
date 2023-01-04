@@ -5,11 +5,15 @@ from dataclasses import dataclass, field
 import customtkinter as ctk
 
 from ui.components import Card
+from ui.components.appearance import Appearance
 import settings as config
 import schif
 import pkutils
 
 import i18n
+
+def _get_appearance() -> Appearance:
+    return Appearance(ctk.get_appearance_mode())
 
 def _paint_new_card(root: ctk.CTkToplevel, gui: GUI, site: str, password: str, verify_password: str) -> None:
     pkutils.patterns.post("new_card", (root, gui, site, password))
@@ -65,7 +69,7 @@ class GUI:
     def setup(self) -> None:
         self.root.title(i18n.t("ui.gui.general.title"))
         self.root.geometry(f"{self.root_width}x{self.root_height}")
-        icon = self.settings.configuration.black_logo if ctk.get_appearance_mode() == "Light" else self.settings.configuration.white_logo
+        icon = self.settings.configuration.black_logo if _get_appearance is Appearance.LIGHT else self.settings.configuration.white_logo
         self.root.iconbitmap(icon)
 
         main_button = ctk.CTkButton(self.root, text="+", hover=False, width=50, command=lambda: _paint_add_screen(self.root, self))
