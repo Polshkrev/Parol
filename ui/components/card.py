@@ -7,15 +7,17 @@ import PIL.Image
 import PIL.ImageTk
 import pyperclip3
 
-import utils
+from ui.components.appearance import Appearance
+
+import pkutils
 
 import typing
 
 # ctk.set_appearance_mode("dark")
 
-def _get_apearance() -> str:
+def _get_apearance() -> Appearance:
     # TODO: make return type an enum
-    return ctk.get_appearance_mode()
+    return Appearance(ctk.get_appearance_mode().lower())
 
 def remove(card: Card) -> None:
     card.remove()
@@ -60,7 +62,7 @@ def _paint_word_label(frame: ctk.CTkFrame, text: str) -> ctk.CTkLabel:
 
 def _paint_x_button(frame: ctk.CTkFrame, card: Card) -> ctk.CTkButton:
     # ! copied from template still testing if works
-    return ctk.CTkButton(frame, text="\u00d7", command=lambda: utils.post_event("remove_card", card), text_font=('Roboto', 12, "bold"), fg_color=frame.fg_color, hover_color=frame.fg_color, border_width=0, border=0, width=0, height=0, corner_radius=10)
+    return ctk.CTkButton(frame, text="\u00d7", command=lambda: pkutils.patterns.post("remove_card", card), text_font=('Roboto', 12, "bold"), fg_color=frame.fg_color, hover_color=frame.fg_color, border_width=0, border=0, width=0, height=0, corner_radius=10)
 
 def _load_image(black_image_directory: str, white_image_directory: str) -> PIL.ImageTk.PhotoImage:
     with PIL.Image.open(black_image_directory) as clip:
@@ -69,7 +71,7 @@ def _load_image(black_image_directory: str, white_image_directory: str) -> PIL.I
     with PIL.Image.open(white_image_directory) as clip:
         white_image = PIL.ImageTk.PhotoImage(clip)
 
-    return black_image if _get_apearance() == "Light" else white_image
+    return black_image if _get_apearance() == Appearance.LIGHT else white_image
 
 @dataclass
 class Card:
