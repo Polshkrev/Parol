@@ -16,8 +16,8 @@ def _get_appearance() -> Appearance:
     return Appearance(ctk.get_appearance_mode())
 
 def _paint_new_card(root: ctk.CTkToplevel, gui: GUI, site: str, password: str, verify_password: str) -> None:
-    pkutils.patterns.post("new_card", (root, gui, site, password))
-    pkutils.patterns.post("add_password", site)
+    pkutils.patterns.event.post("new_card", (root, gui, site, password))
+    pkutils.patterns.event.post("add_password", site)
 
 def _check_length(*entries: ctk.CTkEntry) -> bool:
     len_entries = [entry for entry in entries if len(entry.get()) > 1]

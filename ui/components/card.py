@@ -62,7 +62,7 @@ def _paint_word_label(frame: ctk.CTkFrame, text: str) -> ctk.CTkLabel:
 
 def _paint_x_button(frame: ctk.CTkFrame, card: Card) -> ctk.CTkButton:
     # ! copied from template still testing if works
-    return ctk.CTkButton(frame, text="\u00d7", command=lambda: pkutils.patterns.post("remove_card", card), text_font=('Roboto', 12, "bold"), fg_color=frame.fg_color, hover_color=frame.fg_color, border_width=0, border=0, width=0, height=0, corner_radius=10)
+    return ctk.CTkButton(frame, text="\u00d7", command=lambda: pkutils.patterns.event.post("remove_card", card), text_font=('Roboto', 12, "bold"), fg_color=frame.fg_color, hover_color=frame.fg_color, border_width=0, border=0, width=0, height=0, corner_radius=10)
 
 def _load_image(black_image_directory: str, white_image_directory: str) -> PIL.ImageTk.PhotoImage:
     with PIL.Image.open(black_image_directory) as clip:
