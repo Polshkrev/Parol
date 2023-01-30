@@ -3,7 +3,7 @@ cryptography==38.0.4
 customtkinter==4.6.3
 darkdetect==0.8.0
 Pillow==9.3.0
-pkutils @ git+https://github.com/Polshkrev/Utilities.git@06eed22b87f7137080c7dd5522382499c1698bce
+pkutils @ git+https://github.com/Polshkrev/Utilities.git@89a44bb2bb4fcfb82ed74be79ef9f0e12d7c4acf
 pycparser==2.21
 pyperclip3==0.4.1
 python-i18n==0.3.9
