@@ -22,7 +22,7 @@ def main(settings: config.Settings) -> None:
 
     events.setup_log_event_handlers(logger)
 
-    if args.ui == "gui":
+    if args.ui is setup.UI.GUI:
         events.setup_gui_event_handlers(manager)
         ui.run_gui(settings, manager)
         
