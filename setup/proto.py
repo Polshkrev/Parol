@@ -1,9 +1,10 @@
 import typing
+import setup.choices
 
 class RuntimeArguments(typing.Protocol):
 
     @property
-    def ui(self) -> str:
+    def ui(self) -> setup.choices.UI:
         ...
 
     @property
