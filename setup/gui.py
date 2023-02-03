@@ -1,5 +1,5 @@
 import settings as config
-import pkutils
+import polutils
 import schif
 import ui
 
@@ -7,7 +7,7 @@ import customtkinter as ctk
 
 def _on_delete(root: ctk.CTk) -> None:
     root.quit()
-    pkutils.patterns.event.post("application_end", None)
+    polutils.patterns.event.post("application_end", None)
 
 def run(settings: config.Settings, database: schif.Parol) -> None:
 
@@ -22,6 +22,6 @@ def run(settings: config.Settings, database: schif.Parol) -> None:
 
     root.protocol("WM_DELETE_WINDOW", lambda: _on_delete(root))
 
-    pkutils.patterns.event.post("application_start", "gui")
+    polutils.patterns.event.post("application_start", "gui")
 
     gui.start()

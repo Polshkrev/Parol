@@ -1,5 +1,5 @@
 import schif
-import pkutils
+import polutils
 import i18n
 import os
 
@@ -15,13 +15,13 @@ def _print_menu() -> None:
     print(i18n.t("ui.cli.menu.clear_screen"))
     print(i18n.t("ui.cli.menu.quit"))
 
-def run(manager: schif.Parol, logger: pkutils.Logger) -> None:
-    pkutils.patterns.event.post("application_start", "cli")
+def run(manager: schif.Parol, logger: polutils.Logger) -> None:
+    polutils.patterns.event.post("application_start", "cli")
     while True:
         _print_menu()
         choice = input(">> ").strip()
         if choice == i18n.t("ui.cli.menu.quit"):
-            pkutils.patterns.event.post("application_end", None)
+            polutils.patterns.event.post("application_end", None)
             print(i18n.t("general.logs.bye"))
             break
         elif choice == i18n.t("ui.cli.menu.clear_screen"):
@@ -40,13 +40,13 @@ def run(manager: schif.Parol, logger: pkutils.Logger) -> None:
                 site = input(i18n.t("ui.cli.prompts.site"))
                 password = input(i18n.t("ui.cli.prompts.password"))
                 manager.add_password(site, password)
-                pkutils.patterns.event.post("add_password", site)
+                polutils.patterns.event.post("add_password", site)
             case "4":
                 site = input(i18n.t("ui.cli.prompts.site"))
                 try:
                     password = manager.get_password(site)
                 except KeyError:
-                    logger.log(i18n.t("ui.cli.errors.password_not_found", site=site), pkutils.LoggingLevel.ERROR)
+                    logger.log(i18n.t("ui.cli.errors.password_not_found", site=site), polutils.LoggingLevel.ERROR)
                     continue
                 else:
                     print(i18n.t("ui.cli.options.password_found", site=site, password=password))
@@ -61,18 +61,18 @@ def run(manager: schif.Parol, logger: pkutils.Logger) -> None:
             case "7":
                 site = input(i18n.t("ui.cli.prompts.site"))
                 manager.remove_password(site)
-                pkutils.patterns.event.post("remove_password", site)
+                polutils.patterns.event.post("remove_password", site)
             case "8":
                 site = input(i18n.t("ui.cli.prompts.site")).strip()
                 password = input(i18n.t("ui.cli.prompts.new_password")).strip()
                 manager.update_password(site, password)
-                pkutils.patterns.event.post("change_password", site)
+                polutils.patterns.event.post("change_password", site)
             case "c" if i18n.get("locale") == "en":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 continue
             case "q" if i18n.get("locale") == "en":
-                pkutils.patterns.event.post("application_end", None)
+                polutils.patterns.event.post("application_end", None)
                 print("Bye")
                 break
             case other:
-                logger.log(f"Invalid choice {other} used.", pkutils.LoggingLevel.ERROR)
+                logger.log(f"Invalid choice {other} used.", polutils.LoggingLevel.ERROR)
