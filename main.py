@@ -13,7 +13,6 @@ def main(settings: config.Settings) -> None:
         password_filename=settings.password_filename
     )
 
-
     logger = setup.logger(settings.log_directory, verbose=args.verbose)
 
     language = settings.language or args.language.lower()

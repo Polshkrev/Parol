@@ -13,10 +13,7 @@ import polutils
 
 import typing
 
-# ctk.set_appearance_mode("dark")
-
 def _get_apearance() -> Appearance:
-    # TODO: make return type an enum
     return Appearance(ctk.get_appearance_mode().lower())
 
 def remove(card: Card) -> None:
@@ -30,14 +27,13 @@ def _paint_update(x_btn: ctk.CTkButton, copy_button: ctk.CTkButton, copy_image: 
     x_btn.place(anchor=ctk.NW, relx=.005, rely=.03)
     copy_button.configure(require_redraw=True, image=copy_image)
 
-def _update(root: ctk.CTk, card: ctk.CTkFrame, x_btn: ctk.CTkButton, copy_button: ctk.CTkButton, copy: PIL.ImageTk.PhotoImage) -> None:
+def _update(card: ctk.CTkFrame, x_btn: ctk.CTkButton, copy_button: ctk.CTkButton, copy: PIL.ImageTk.PhotoImage) -> None:
     if card.winfo_exists():
         card.bind("<Enter>", lambda _: _paint_update(x_btn, copy_button, copy))
         card.bind("<Leave>", lambda _: _remove_update(x_btn, copy_button))
     else:
         card.unbind_all("<Enter>")
         card.unbind_all("<Leave>")
-    # root.after(50, lambda: _update(root, card, x_btn, copy_button, copy))
 
 def _paint_frame(root: ctk.CTk, width: int = 150, height: int = 150) -> ctk.CTkFrame:
     frame = ctk.CTkFrame(root, width=width, height=height, border_width=0, corner_radius=10) # type: ignore
@@ -71,7 +67,7 @@ def _load_image(black_image_directory: str, white_image_directory: str) -> PIL.I
     with PIL.Image.open(white_image_directory) as clip:
         white_image = PIL.ImageTk.PhotoImage(clip)
 
-    return black_image if _get_apearance() == Appearance.LIGHT else white_image
+    return black_image if _get_apearance() is Appearance.LIGHT else white_image
 
 @dataclass
 class Card:
@@ -93,7 +89,7 @@ class Card:
         self.x_button = _paint_x_button(self.frame, self)
         self.frame.grid(row=row, column=index, sticky=ctk.NW, pady=5, padx=5)
         # self.x_button.place(anchor=ctk.NW, relx=.005, rely=.03)
-        _update(self.root, self.frame, self.x_button, self.copy_button, self.copy_image)
+        _update(self.frame, self.x_button, self.copy_button, self.copy_image)
 
     def update_title(self, title: str) -> None:
         """Update the title on the card."""
@@ -122,7 +118,6 @@ class Card:
         self.frame.destroy()
         self.root.update()
 
-    # ! DEPRICATED
     def clear(self) -> None:
         """Clear the card from the GUI."""
         self.frame.grid_forget()
