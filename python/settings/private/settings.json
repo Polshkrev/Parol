@@ -1,0 +1,10 @@
+{
+    "language_folder": "./locale",
+    "appearance": "System",
+    "theme": "dark-blue",
+    "geometry": "856x482",
+    "black_image": "./ui/assets/black.png",
+    "white_image": "./ui/assets/white.png",
+    "black_logo": "./ui/assets/p_logo_black.ico",
+    "white_logo": "./ui/assets/p_logo_white.ico"
+}
