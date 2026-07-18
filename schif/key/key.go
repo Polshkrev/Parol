@@ -8,7 +8,7 @@ import (
 
 // Generate a key to encrypt data.
 // Returns a fernetic key.
-func GenerateKey() *fernet.Key {
+func Generate() *fernet.Key {
 	var key *fernet.Key = new(fernet.Key)
 	var generateError error = key.Generate()
 	if generateError != nil {
@@ -18,7 +18,8 @@ func GenerateKey() *fernet.Key {
 }
 
 // Write a given key to a given [fayl.Path].
-func WriteKey(file *fayl.Path, key *fernet.Key) {
+// If the file can not be written, an [gopolutils.IOError] is returned.
+func Write(file *fayl.Path, key *fernet.Key) {
 	var except *gopolutils.Exception = fayl.Write(file, []byte(key.Encode()))
 	if except != nil {
 		panic(except)
@@ -27,6 +28,6 @@ func WriteKey(file *fayl.Path, key *fernet.Key) {
 
 // Load a fernetic key from a given [fayl.Path].
 // Returns a string representation of a fernetic key.
-func LoadKey(file *fayl.Path) string {
+func Load(file *fayl.Path) string {
 	return string(gopolutils.Must(fayl.Read(file)))
 }

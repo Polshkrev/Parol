@@ -15,7 +15,7 @@ type Parol struct {
 
 // Construct a new password manager based on a given key.
 // Returns a new password manager based on a given key.
-func NewParol(key *fernet.Key) *Parol {
+func New(key *fernet.Key) *Parol {
 	var parol *Parol = new(Parol)
 	parol.passwords = collections.NewMap[string, []byte]()
 	parol.key = key
