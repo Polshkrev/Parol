@@ -1,2 +1,0 @@
-# Parol
-A password manager.

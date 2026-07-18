@@ -1,7 +1,0 @@
-ru:
-  key_file: Создан файл ключа.
-  load_key: Загружен файл ключа.
-  key_file_update: Обновлен файл ключа.
-  password_file_update: Обновлен файл паролей.
-  password_loaded: Загружены пароли.
-  password_found: 'Пароль для "%{site}": %{password}'

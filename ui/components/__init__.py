@@ -1,1 +1,0 @@
-from ui.components.card import Card

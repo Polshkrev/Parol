@@ -1,7 +1,0 @@
-en:
-  key_file: Key file created.
-  load_key: Key file loaded.
-  key_file_update: Key file updated.
-  password_file_update: Password file updated.
-  password_loaded: Passwords loaded.
-  password_found: "Password for %{site} is: %{password}."
