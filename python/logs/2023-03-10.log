@@ -1,0 +1,6 @@
+2023-03-10 13:05:37,079:setup.log[DEBUG] - Application started with GUI.
+2023-03-10 13:05:44,324:setup.log[INFO] - A new password was added to the database for yahoo.
+2023-03-10 13:05:46,459:setup.log[DEBUG] - Application has ended.
+2023-03-10 13:05:48,634:setup.log[DEBUG] - Application started with GUI.
+2023-03-10 13:05:50,014:setup.log[INFO] - Password for yahoo was removed from the database.
+2023-03-10 13:05:51,578:setup.log[DEBUG] - Application has ended.
