@@ -11,6 +11,7 @@ import (
 	"github.com/Polshkrev/gopolutils"
 	"github.com/Polshkrev/gopolutils/fayl"
 	"github.com/Polshkrev/parol/settings"
+	"github.com/Polshkrev/parol/ui/components/themes"
 )
 
 const (
@@ -74,7 +75,7 @@ func addCardBase(card *Card, parent *fyne.Container, assetPath *fayl.Path) {
 	var cardTitle *fyne.Container = container.NewBorder(nil, nil, button, copy)
 	var box *fyne.Container = container.NewVBox(container.NewPadded(cardTitle), layout.NewSpacer(), addLabel(card.title), layout.NewSpacer(), layout.NewSpacer())
 	card.SetContent(box)
-	container.NewThemeOverride(card, NewCardTheme())
+	container.NewThemeOverride(card, themes.NewCard())
 
 }
 
