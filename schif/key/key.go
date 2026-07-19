@@ -1,4 +1,4 @@
-package schif
+package key
 
 import (
 	"github.com/Polshkrev/gopolutils"
