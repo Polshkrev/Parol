@@ -1,9 +1,10 @@
-package schif
+package parol
 
 import (
 	"github.com/Polshkrev/gopolutils"
 	"github.com/Polshkrev/gopolutils/collections"
 	"github.com/Polshkrev/goserialize"
+	"github.com/Polshkrev/parol/models/password"
 	"github.com/fernet/fernet-go"
 )
 
@@ -27,6 +28,20 @@ func New(key *fernet.Key) *Parol {
 // If a [gopolutils.KeyError] is returned, the manager is not modified.
 func (parol *Parol) Insert(key, password string) *gopolutils.Exception {
 	return parol.passwords.Insert(key, gopolutils.Must(encryptPassword(parol.key, password)))
+}
+
+// Append a [collections.View] of [password.Password]s to the manager.
+// If the password can not be appended to the manager, a [gopolutils.KeyError] is returned.
+func (parol *Parol) Extend(passwords collections.View[password.Password]) *gopolutils.Exception {
+	var i gopolutils.Size
+	for i = range collections.Enumerate(passwords) {
+		var password password.Password = passwords.Collect()[i]
+		var except *gopolutils.Exception = parol.passwords.Insert(password.Key(), []byte(password.Password()))
+		if except != nil {
+			return except
+		}
+	}
+	return nil
 }
 
 // Obtain the password stored in the manager at the given key.
