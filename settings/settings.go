@@ -23,18 +23,9 @@ type Header struct {
 // Low-level configuration details.
 type Configuration struct {
 	Title         string `json:"title"`
-	Author        string `json:"author"`
 	Header        Header `json:"header"`
 	Width         uint16 `json:"width"`
 	Height        uint16 `json:"height"`
-	AssetFolder   string `json:"assetFolder"`
-	BlackIcon     string `json:"blackIcon"`
-	WhiteIcon     string `json:"whiteIcon"`
-	BlackLogo     string `json:"blackLogo"`
-	WhiteLogo     string `json:"whiteLogo"`
-	DataFolder    string `json:"dataFolder"`
-	DatabaseFile  string `json:"databaseFile"`
-	KeyFile       string `json:"keyFile"`
 	AppearanceKey string `json:"appearanceKey"`
 }
 
