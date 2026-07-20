@@ -144,11 +144,12 @@ func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Fo
 			return
 		}
 		card.Paint(parent)
-		var except *gopolutils.Exception = gui.parol.Insert(card.Key(), card.Password())
-		if except != nil {
-			panic(except)
-		}
-		gui.cards.Append(card)
+		events.Post(settings.CardAdded, card)
+		// var except *gopolutils.Exception = gui.parol.Insert(card.Key(), card.Password())
+		// if except != nil {
+		// 	panic(except)
+		// }
+		// gui.cards.Append(card)
 		(*form.Parent()).Close()
 	}
 }
