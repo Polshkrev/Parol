@@ -1,0 +1,24 @@
+[project]
+name = "Parol"
+author = { name = "Polshkrev" }
+description = "A password manager."
+type = "application"
+
+[project.version]
+minor = 1
+
+[license]
+type = "MIT"
+path = "LICENSE"
+
+[urls]
+twitch = "https://www.twitch.tv/polshkrev"
+repository = "https://github.com/Polshkrev/Parol"
+
+[paths]
+readme = "README.md"
+
+[commands]
+script = ["bin/build", "-release", "-name", "parol"]
+build = ["bin/compile", "-release", "-name", "parol"]
+run = ["bin/run", "-release", "-name", "parol"]
