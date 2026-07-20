@@ -24,7 +24,6 @@ func registerCardAdded(gui *GUI) {
 		if except != nil {
 			panic(except)
 		}
-		gui.passwords.Insert(*password.New(card.Key(), card.Password()))
 	})
 }
 
