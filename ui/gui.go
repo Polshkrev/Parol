@@ -66,7 +66,6 @@ func (gui *GUI) setup(parent *fyne.Container) {
 	var key string
 	for key = range gui.parol.Passwords() {
 		var card *components.Card = components.NewCard(key, string(gopolutils.Must(gui.parol.Get(key))), gui.settings.Appearance)
-
 		card.Paint(parent)
 		gui.cards.Append(card)
 		registerCardEvents(gui, card)
