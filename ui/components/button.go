@@ -23,7 +23,7 @@ func NewButton(text string, icon fyne.Resource, callback Callback) *Button {
 }
 
 // Custom tapped override.
-func (button *Button) Tapped(_ *fyne.PointEvent) {
+func (button *Button) Tapped(*fyne.PointEvent) {
 	if button.callback == nil {
 		return
 	}
@@ -34,4 +34,10 @@ func (button *Button) Tapped(_ *fyne.PointEvent) {
 // Returns a pointer cursor.
 func (button *Button) Cursor() desktop.Cursor {
 	return desktop.PointerCursor
+}
+
+// Make the default callback used in the button.
+// Returns the default callback to use with the button.
+func makeDefaultCallback(content string) Callback {
+	return func() { fyne.CurrentApp().Clipboard().SetContent(content) }
 }
