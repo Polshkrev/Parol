@@ -35,8 +35,8 @@ func loadIcon(appearance settings.Appearance, whitePath, darkPath *fayl.Path) fy
 // Returns the gui of the application.
 func GUI(passwords table.Table[password.Password], manager *parol.Parol, configuration settings.Settings) *ui.GUI {
 	var application fyne.App = app.New()
+	application.SetIcon(loadIcon(configuration.Appearance, GetAssetPath().JoinAs(whiteLogo), GetAssetPath().JoinAs(blackLogo)))
 	var window fyne.Window = application.NewWindow(configuration.Configuration.Title)
-	window.SetIcon(loadIcon(configuration.Appearance, GetAssetPath(configuration.Configuration).JoinAs(configuration.Configuration.WhiteLogo), GetAssetPath(configuration.Configuration).JoinAs(configuration.Configuration.BlackLogo)))
 	var gui *ui.GUI = ui.NewGUI(&window, passwords, manager, configuration)
 	gui.Paint()
 	return gui
