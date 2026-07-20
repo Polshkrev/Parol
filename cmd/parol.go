@@ -22,7 +22,7 @@ const (
 
 // Register the application end event.
 func registerApplicationEnd(manager *parol.Parol, database table.Table[password.Password]) {
-	events.Subscribe(settings.ApplicationEnd, func() {
+	events.Subscribe(settings.ApplicationEnd, func(any) {
 		var except *gopolutils.Exception = database.InsertMany(parol.ObjectToView(manager.Passwords()))
 		if except != nil {
 			panic(except)
