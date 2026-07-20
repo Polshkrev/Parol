@@ -11,8 +11,14 @@ import (
 )
 
 // Register the card added event.
-func registerCardAdded(gui *GUI, card *components.Card) {
-	events.Subscribe(settings.CardAdded, func() {
+func registerCardAdded(gui *GUI) {
+	events.Subscribe(settings.CardAdded, func(data any) {
+		var card *components.Card
+		var ok bool
+		card, ok = data.(*components.Card)
+		if !ok {
+			return
+		}
 		gui.cards.Append(card)
 		var except *gopolutils.Exception = gui.parol.Insert(card.Key(), card.Password())
 		if except != nil {
@@ -23,16 +29,26 @@ func registerCardAdded(gui *GUI, card *components.Card) {
 }
 
 // Register the password deleted event.
-func registerPasswordDelete(table table.Table[password.Password], password password.Password) {
-	events.Subscribe(settings.CardDeleted, func() {
-		table.Remove(password)
+func registerPasswordDelete(table table.Table[password.Password]) {
+	events.Subscribe(settings.CardDeleted, func(data any) {
+		var result *components.Card
+		var ok bool
+		result, ok = data.(*components.Card)
+		if !ok {
+			return
+		}
+		var password *password.Password = password.New(result.Key(), result.Password())
+		table.Remove(*password)
 	})
 }
 
 // Register the card deleted event.
-func registerCardDeleted(gui *GUI, card *components.Card) {
-	events.Subscribe(settings.CardDeleted, func() {
-		if gui.cards.IsEmpty() {
+func registerCardDeleted(gui *GUI) {
+	events.Subscribe(settings.CardDeleted, func(data any) {
+		var card *components.Card
+		var ok bool
+		card, ok = data.(*components.Card)
+		if !ok {
 			return
 		}
 		var except *gopolutils.Exception = removeCard(gui, card)
@@ -61,8 +77,8 @@ func removeCard(gui *GUI, card components.Component) *gopolutils.Exception {
 }
 
 // Register each of the card events for the given gui.
-func registerCardEvents(gui *GUI, card *components.Card) {
-	registerCardAdded(gui, card)
-	registerCardDeleted(gui, card)
-	registerPasswordDelete(gui.passwords, *password.New(card.Key(), card.Password()))
+func registerCardEvents(gui *GUI) {
+	registerCardAdded(gui)
+	registerCardDeleted(gui)
+	registerPasswordDelete(gui.passwords)
 }

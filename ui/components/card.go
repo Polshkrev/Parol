@@ -62,16 +62,16 @@ func (card *Card) String() string {
 
 // Paint a card to a given parent.
 func (card *Card) Paint(parent *fyne.Container) {
-	addCardBase(card, parent, getCopyPath(card.appearance))
-	registerCardEvents(card, parent)
+	addCardBase(card, getCopyPath(card.appearance))
+	registerCardEvents(parent)
 	parent.Add(card)
 	parent.Refresh()
 }
 
 // Construct the entire card base and paint it to its given parent.
-func addCardBase(card *Card, parent *fyne.Container, assetPath *fayl.Path) {
+func addCardBase(card *Card, assetPath *fayl.Path) {
 	var copy *Button = gopolutils.Must(addCopyIcon(fayl.PathFrom(assetPath.String()), makeDefaultCallback(card.text)))
-	var button *Button = NewButton("", theme.CancelIcon(), removeCallback(card, parent))
+	var button *Button = NewButton("", theme.CancelIcon(), removeCallback(card))
 	var cardTitle *fyne.Container = container.NewBorder(nil, nil, button, copy)
 	var box *fyne.Container = container.NewVBox(container.NewPadded(cardTitle), layout.NewSpacer(), addLabel(card.title), layout.NewSpacer(), layout.NewSpacer())
 	card.SetContent(box)
