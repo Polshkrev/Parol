@@ -42,6 +42,10 @@ func keygen(file *fayl.Path) (*fernet.Key, *gopolutils.Exception) {
 // Setup the password logic for the application.
 // Returns a tuple containing the password manager and the table of passwords.
 func Passwords(keyFile, passwordFile *fayl.Path, tableName string, driver table.Driver) (*parol.Parol, table.Table[password.Password]) {
+	var except *gopolutils.Exception = Configuration(applicationName)
+	if except != nil {
+		panic(except)
+	}
 	var key *fernet.Key = gopolutils.Must(checkFile(keyFile, keygen))
 	gopolutils.Must(checkFile(passwordFile, createPath))
 
@@ -52,7 +56,7 @@ func Passwords(keyFile, passwordFile *fayl.Path, tableName string, driver table.
 	var database table.Table[password.Password] = password.NewTable(connection)
 	database.Create(tableName)
 
-	var except *gopolutils.Exception = parol.Extend(gopolutils.Must(database.GetAll()))
+	except = parol.Extend(gopolutils.Must(database.GetAll()))
 	if except != nil {
 		panic(except)
 	}
