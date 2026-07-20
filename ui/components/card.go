@@ -111,9 +111,3 @@ func getCopyPath(appearance settings.Appearance) *fayl.Path {
 	}
 	return assetFolder.JoinAs(copyLightIcon)
 }
-
-// Make the default callback used in the card.
-// Returns the default callback to use with the card.
-func makeDefaultCallback(content string) Callback {
-	return func() { fyne.CurrentApp().Clipboard().SetContent(content) }
-}
