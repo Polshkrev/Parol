@@ -4,7 +4,7 @@ go 1.26.0
 
 require (
 	fyne.io/fyne/v2 v2.7.4
-	github.com/Polshkrev/gopolutils v1.40.0
+	github.com/Polshkrev/gopolutils v1.40.1
 	github.com/Polshkrev/goserialize v0.10.0
 	github.com/fernet/fernet-go v0.0.0-20240119011108-303da6aec611
 	github.com/kbinani/screenshot v0.0.0-20250624051815-089614a94018
