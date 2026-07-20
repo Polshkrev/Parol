@@ -48,11 +48,11 @@ func (gui *GUI) Paint() {
 	(*gui.window).SetContent(paint(gui))
 	(*gui.window).Resize(windowSize)
 	(*gui.window).CenterOnScreen()
-	events.Subscribe(settings.ApplicationEnd, func() {
+	events.Subscribe(settings.ApplicationEnd, func(any) {
 		(*gui.window).Close()
 	})
 	(*gui.window).SetCloseIntercept(func() {
-		events.Post(settings.ApplicationEnd)
+		events.Post(settings.ApplicationEnd, nil)
 	})
 }
 
@@ -68,8 +68,8 @@ func (gui *GUI) setup(parent *fyne.Container) {
 		var card *components.Card = components.NewCard(key, string(gopolutils.Must(gui.parol.Get(key))), gui.settings.Appearance)
 		card.Paint(parent)
 		gui.cards.Append(card)
-		registerCardEvents(gui, card)
 	}
+	registerCardEvents(gui)
 }
 
 // Setup the base ui of the given gui.
@@ -143,7 +143,6 @@ func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Fo
 			paintInformation("Empty Password", "The Password Entry Can Not Be Empty.", 400, 150)
 			return
 		}
-		registerCardEvents(gui, card)
 		card.Paint(parent)
 		var except *gopolutils.Exception = gui.parol.Insert(card.Key(), card.Password())
 		if except != nil {
