@@ -95,7 +95,7 @@ func paintAddForm(gui *GUI, cardParent *fyne.Container, title string, appearance
 	form.SetParent(&formWindow)
 	form.Append(components.NewItem(components.NewEntry("Key", false, false, func(s string) error { return nil })))
 	form.Append(components.NewItem(components.NewEntry("Password", true, true, func(s string) error { return nil })))
-	form.SetSubmitCallBack(registerAddFormSubmit(gui, cardParent, form, appearance))
+	form.SetSubmitCallBack(registerAddFormSubmit(cardParent, form, appearance))
 	form.Paint(nil)
 }
 
