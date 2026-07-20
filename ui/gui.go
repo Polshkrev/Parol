@@ -1,6 +1,8 @@
 package ui
 
 import (
+	"image"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
@@ -9,12 +11,14 @@ import (
 	"fyne.io/fyne/v2/widget"
 	"github.com/Polshkrev/gopolutils"
 	"github.com/Polshkrev/gopolutils/collections"
+	"github.com/Polshkrev/gopolutils/events"
 	"github.com/Polshkrev/gopolutils/table"
-	"github.com/Polshkrev/parol/events"
+	"github.com/Polshkrev/parol/models/environment"
 	"github.com/Polshkrev/parol/models/password"
 	"github.com/Polshkrev/parol/schif/parol"
 	"github.com/Polshkrev/parol/settings"
 	"github.com/Polshkrev/parol/ui/components"
+	"github.com/kbinani/screenshot"
 )
 
 // Custom GUI.
@@ -40,14 +44,15 @@ func NewGUI(window *fyne.Window, passwords table.Table[password.Password], parol
 
 // Paint the gui.
 func (gui *GUI) Paint() {
+	var windowSize fyne.Size = getWindowSize(gui.settings.Configuration)
 	(*gui.window).SetContent(paint(gui))
-	(*gui.window).Resize(fyne.NewSize(float32(gui.settings.Configuration.Width), float32(gui.settings.Configuration.Height)))
+	(*gui.window).Resize(windowSize)
 	(*gui.window).CenterOnScreen()
-	events.Subscribe(events.ApplicationEnd, func() {
+	events.Subscribe(settings.ApplicationEnd, func() {
 		(*gui.window).Close()
 	})
 	(*gui.window).SetCloseIntercept(func() {
-		events.Post(events.ApplicationEnd)
+		events.Post(settings.ApplicationEnd)
 	})
 }
 
@@ -148,4 +153,14 @@ func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Fo
 		gui.cards.Append(card)
 		(*form.Parent()).Close()
 	}
+}
+
+// Scale the application based on the original size.
+// Returns a size based on a scaled output.
+func getWindowSize(configuration settings.Configuration) fyne.Size {
+	var bounds image.Rectangle = screenshot.GetDisplayBounds(0)
+	if bounds.Dx() > 1920 && bounds.Dx() > 1080 {
+		environment.Set("FYNE_SCALE", ".825")
+	}
+	return fyne.NewSize(float32(configuration.Width), float32(configuration.Height))
 }
