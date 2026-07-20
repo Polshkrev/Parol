@@ -6,14 +6,6 @@
             "width": 50,
             "height": 50
         },
-        "assetFolder": "assets",
-        "blackIcon": "black.png",
-        "whiteIcon": "white.png",
-        "blackLogo": "p_logo_black.png",
-        "whiteLogo": "p_logo_white.png",
-        "dataFolder": "data",
-        "databaseFile": "database.db",
-        "keyFile": "Key.key",
         "appearanceKey": "FYNE_THEME",
         "width": 1500,
         "height": 750
