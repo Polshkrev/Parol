@@ -1,0 +1,11 @@
+appearance = "light"
+
+[configuration]
+title = "Parol"
+height = 750
+width = 1500
+appearanceKey = "FYNE_THEME"
+
+[configuration.header]
+width = 50
+height = 50
