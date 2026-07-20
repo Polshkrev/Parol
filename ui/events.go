@@ -3,15 +3,16 @@ package ui
 import (
 	"github.com/Polshkrev/gopolutils"
 	"github.com/Polshkrev/gopolutils/collections"
+	"github.com/Polshkrev/gopolutils/events"
 	"github.com/Polshkrev/gopolutils/table"
-	"github.com/Polshkrev/parol/events"
 	"github.com/Polshkrev/parol/models/password"
+	"github.com/Polshkrev/parol/settings"
 	"github.com/Polshkrev/parol/ui/components"
 )
 
 // Register the card added event.
 func registerCardAdded(gui *GUI, card *components.Card) {
-	events.Subscribe(events.CardAdded, func() {
+	events.Subscribe(settings.CardAdded, func() {
 		gui.cards.Append(card)
 		var except *gopolutils.Exception = gui.parol.Insert(card.Key(), card.Password())
 		if except != nil {
@@ -23,14 +24,14 @@ func registerCardAdded(gui *GUI, card *components.Card) {
 
 // Register the password deleted event.
 func registerPasswordDelete(table table.Table[password.Password], password password.Password) {
-	events.Subscribe(events.CardDeleted, func() {
+	events.Subscribe(settings.CardDeleted, func() {
 		table.Remove(password)
 	})
 }
 
 // Register the card deleted event.
 func registerCardDeleted(gui *GUI, card *components.Card) {
-	events.Subscribe(events.CardDeleted, func() {
+	events.Subscribe(settings.CardDeleted, func() {
 		if gui.cards.IsEmpty() {
 			return
 		}
