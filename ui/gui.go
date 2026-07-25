@@ -95,7 +95,7 @@ func paintAddForm(gui *GUI, cardParent *fyne.Container, title string, appearance
 	form.SetParent(&formWindow)
 	form.Append(components.NewItem(components.NewEntry("Key", false, false, func(s string) error { return nil })))
 	form.Append(components.NewItem(components.NewEntry("Password", true, true, func(s string) error { return nil })))
-	form.SetSubmitCallBack(registerAddFormSubmit(gui, cardParent, form, appearance))
+	form.SetSubmitCallBack(registerAddFormSubmit(cardParent, form, appearance))
 	form.Paint(nil)
 }
 
@@ -132,7 +132,7 @@ func getFormItems(form *components.Form) *collections.Pair[*components.Item, *co
 
 // Setup the logic for submitting a form.
 // Returns a callback triggered when the form is submitted.
-func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Form, appearance settings.Appearance) components.Callback {
+func registerAddFormSubmit(parent *fyne.Container, form *components.Form, appearance settings.Appearance) components.Callback {
 	return func() {
 		var items *collections.Pair[*components.Item, *components.Item] = getFormItems(form)
 		var card *components.Card = components.NewCard((*items.First()).Value(), (*items.Second()).Value(), appearance)
@@ -145,11 +145,6 @@ func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Fo
 		}
 		card.Paint(parent)
 		events.Post(settings.CardAdded, card)
-		// var except *gopolutils.Exception = gui.parol.Insert(card.Key(), card.Password())
-		// if except != nil {
-		// 	panic(except)
-		// }
-		// gui.cards.Append(card)
 		(*form.Parent()).Close()
 	}
 }

@@ -18,12 +18,12 @@ func loadIcon(appearance settings.Appearance, whitePath, darkPath *fayl.Path) fy
 	var resource fyne.Resource
 	var resourceError error
 	if appearance == settings.Dark {
-		resource, resourceError = fyne.LoadResourceFromPath(darkPath.String())
+		resource, resourceError = fyne.LoadResourceFromPath(whitePath.String())
 		if resourceError != nil {
 			panic(gopolutils.NewNamedException(gopolutils.IOError, "%s", resourceError.Error()))
 		}
 	} else {
-		resource, resourceError = fyne.LoadResourceFromPath(whitePath.String())
+		resource, resourceError = fyne.LoadResourceFromPath(darkPath.String())
 		if resourceError != nil {
 			panic(gopolutils.NewNamedException(gopolutils.IOError, "%s", resourceError.Error()))
 		}
