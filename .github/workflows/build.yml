@@ -54,13 +54,30 @@ jobs:
         run: |
           fyne package -os linux -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png"
           mv *.xz dist
-
-  distribute:
-    needs: build # Waits for ALL matrix instances to succeed
-    runs-on: ubuntu-latest
-    steps:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Parol-${{ matrix.os }}
           path: ${{ github.workspace }}/dist/*
+
+  dist:
+    runs-on: ubuntu-latest
+
+    needs: build 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all matrix artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: Parol-*
+          path: combined-outputs
+          merge-multiple: true
+
+      # 3. Upload everything together as a single final artifact
+      - name: Upload consolidated final artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Parol
+          path: dist
