@@ -41,7 +41,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
-          Move-Item -Path "*/Parol.*" -Destination dist -Force
+          Move-Item -Path "*/Parol.exe" -Destination dist -Force
 
       - name: Package with Fyne On Darwin
         if: runner.os == 'macOS'
