@@ -11,8 +11,9 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [linux, windows, darwin]
-    runs-on: ubuntu-latest
+        target: [linux, windows, darwin]
+        platform: [ubuntu-latest, windows-latest, darwin-latest]
+    runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -30,10 +31,10 @@ jobs:
 
       - name: Build with Fyne-cross
         run: |
-          fyne-cross ${{ matrix.platform }} -release -app-id "com.github.parol" -name "myapp" -icon "ui/assets/black_logo.png"
+          fyne-cross ${{ matrix.target }} -release -app-id "com.github.parol" -name "myapp" -icon "ui/assets/black_logo.png"
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Parol-${{ matrix.platform }}
-          path: fyne-cross/dist/${{ matrix.platform }}/*
+          name: Parol-${{ matrix.target }}
+          path: fyne-cross/dist/${{ matrix.target }}/*
