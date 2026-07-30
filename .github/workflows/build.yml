@@ -35,8 +35,10 @@ jobs:
 
       - name: Package with Fyne On Windows
         if: runner.os == 'Windows'
+        env:
+          CGO_ENABLED: 1
         run: |
-          CGO_ENABLED=1 fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
+          fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
           Move-Item -Path "*/Parol.exe" -Destination dist -Force
 
       - name: Package with Fyne On Darwin (Apple Silicon)
