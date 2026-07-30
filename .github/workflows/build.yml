@@ -66,11 +66,8 @@ jobs:
       - name: Sign Executable
         if: runner.os == 'Windows'
         run: |
-            $signtool = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
-            & $signtool sign /f "$env:TEMP\certificate.pfx" /p "${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}" /tr http://digicert.com /td sha256 /fd sha256 Parol.exe
+            "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f "$env:TEMP\certificate.pfx" /p "${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}" /tr http://digicert.com /td sha256 /fd sha256 Parol.exe
             Move-Item -Path "*/Parol.exe" -Destination dist -Force
-
-
 
       - name: Upload Individual Build Artifacts
         uses: actions/upload-artifact@v4
