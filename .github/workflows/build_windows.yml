@@ -20,30 +20,29 @@ jobs:
           go-version: '1.26' # Adjust to match your go.mod
           cache: true
 
-      - name: Set up Docker
-        uses: docker/setup-docker-action@v4 
+      # - name: Set up Docker
+      #   uses: docker/setup-docker-action@v4 
 
-      - name: Fix fyne-cross permissions for Windows
-        if: always()
-        run: |
-          icacls "fyne-cross" /grant "Everyone:(OI)(CI)F" /T
-        shell: cmd
+      # - name: Fix fyne-cross permissions for Windows
+      #   if: always()
+      #   run: |
+      #     icacls "fyne-cross" /grant "Everyone:(OI)(CI)F" /T
+      #   shell: cmd
 
-      - name: Pre-clean build artifacts
-        run: |
-          Remove-Item -Recurse -Force ./fyne-cross -ErrorAction SilentlyContinue
+      # - name: Pre-clean build artifacts
+      #   run: |
+      #     Remove-Item -Recurse -Force ./fyne-cross -ErrorAction SilentlyContinue
 
       - name: Install Fyne CLI and Fyne-cross
         run: |
           go install fyne.io/tools/cmd/fyne@latest
-          go install github.com/fyne-io/fyne-cross@latest
 
       - name: Build with Fyne-cross
         run: |
-          fyne-cross windows -release -app-id "com.github.parol" -name "Parol" -dir ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png"
+          fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -exe ${{ github.workspace }}\bin\parol-windows.exe -icon "${{ github.workspace }}\ui\assets\black_logo.png"
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Parol-windows
-          path: ${{ github.workspace }}/fyne-cross/dist/windows/*
+          path: ${{ github.workspace }}\bin\parol-windows.exe
