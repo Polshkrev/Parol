@@ -1,0 +1,39 @@
+name: Build and Package Fyne App
+
+on:
+  push:
+    branches: [ main, dev ]
+#   pull_request:
+#     branches: [ main, dev ]
+#   workflow_dispatch: # Allows manual triggers
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest, darwin-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.26' # Adjust to match your go.mod
+          cache: true
+
+      - name: Install Fyne CLI and Fyne-cross
+        run: |
+          go install fyne.io/tools/cmd/fyne@latest
+          go install github.com/fyne-io/fyne-cross@latest
+
+      - name: Build with Fyne-cross
+        run: |
+          fyne-cross ${{ matrix.platform }} -app-id "com.example.myapp" -name "myapp"
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Parol-${{ matrix.platform }}
+          path: fyne-cross/dist/${{ matrix.platform }}/*
