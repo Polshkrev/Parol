@@ -25,16 +25,27 @@ func addEntryBase(entry *Entry) {
 	entry.SetPlaceHolder(entry.text)
 }
 
+// Add the given callback to the given entry.
+func addCallback(entry *Entry, callback Callback) {
+	if !entry.submit || callback == nil {
+		return
+	}
+	entry.OnSubmitted = func(string) {
+		callback()
+	}
+}
+
 // Construct a new custom entry widget.
 // Returns a new custom entry widget.
-func NewEntry(text string, password bool, submit bool, validationFunction fyne.StringValidator) *Entry {
+func NewEntry(text string, password bool, submit bool, validationFunction fyne.StringValidator, submitCallback Callback) *Entry {
 	var entry *Entry = new(Entry)
 	entry.text = text
 	entry.password = password
 	entry.submit = submit
 	entry.validationFunction = validationFunction
 	addEntryBase(entry)
-	entry.ExtendBaseWidget(entry.Entry)
+	addCallback(entry, submitCallback)
+	entry.ExtendBaseWidget(entry)
 	return entry
 }
 
