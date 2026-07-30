@@ -40,12 +40,14 @@ jobs:
       - name: Package with Fyne On Windows
         if: runner.os == 'Windows'
         run: |
-          fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -exe ${{ github.workspace }}\dist\parol-windows.exe -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
+          fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
 
       - name: Package with Fyne On Darwin
         if: runner.os == 'macOS'
         run: |
-          fyne package -os darwin -release -id "com.github.parol" -name "${{ github.workspace }}/dist/Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png" -cert macos -profile macos
+          fyne package -os darwin -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png" -cert macos -profile macos
+          mv cmd/Parol.app dist
+
 
       - name: Package with Fyne On Linux
         if: runner.os == 'Linux'
