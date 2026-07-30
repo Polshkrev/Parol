@@ -5,6 +5,7 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/lang"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 )
@@ -61,7 +62,7 @@ func searchCallback(value string, cardParent *fyne.Container) {
 // Paint the search bar.
 // Returns the canvas object containing the search bar.
 func paintSearch(cardParent *fyne.Container) fyne.CanvasObject {
-	var search *Entry = NewEntry("Search", false, false, nil, nil)
+	var search *Entry = NewEntry(lang.L("gui.labels.prompts.search"), false, false, nil, nil)
 	search.Wrapping = fyne.TextWrapOff
 	search.Scroll = container.ScrollHorizontalOnly
 	search.OnChanged = func(value string) { searchCallback(value, cardParent) }
