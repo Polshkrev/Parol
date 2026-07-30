@@ -11,7 +11,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest, darwin-latest]
+        platform: [linux, windows, darwin]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout Code
@@ -30,7 +30,7 @@ jobs:
 
       - name: Build with Fyne-cross
         run: |
-          fyne-cross ${{ matrix.platform }} -release -app-id "com.example.myapp" -name "myapp" -icon "ui/assets/black_logo.png"
+          fyne-cross ${{ matrix.platform }} -release -app-id "com.github.parol" -name "myapp" -icon "ui/assets/black_logo.png"
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
