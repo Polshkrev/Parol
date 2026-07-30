@@ -19,7 +19,8 @@ const (
 
 // Default settings for the application.
 var defaultSettings goserialize.Object = goserialize.Object{
-	"appearance": "system",
+	"appearance":   "system",
+	"localeFolder": "translations",
 	"configuration": goserialize.Object{
 		"title": "Parol",
 		"header": goserialize.Object{
