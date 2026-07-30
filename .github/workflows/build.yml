@@ -1,0 +1,56 @@
+name: Build and Package Fyne App
+
+on:
+  push:
+    branches: [ main, dev ]
+#   pull_request:
+#     branches: [ main, dev ]
+#   workflow_dispatch: # Allows manual triggers
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, darwin-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+          cache: true
+
+      - name: Install Fyne CLI
+        run: |
+          go install fyne.io/tools/cmd/fyne@latest
+
+      - name: Make Dist Folder
+        run: |
+          mkdir dist
+
+      - name: Package with Fyne On Windows
+        if: matrix.os == 'window-latest'
+        run: |
+          fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -exe ${{ github.workspace }}\dist\parol-windows.exe -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
+
+      - name: Package with Fyne On Darwin
+        if: matrix.os == 'darwin-latest'
+        run: |
+          fyne package -os darwin -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -exe ${{ github.workspace }}/dist/parol-darwin.app -icon "${{ github.workspace }}/ui/assets/black_logo.png" -cert macos -profile macos
+
+      - name: Package with Fyne On Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y golang gcc libgl1-mesa-dev xorg-dev libwayland-dev libxkbcommon-dev
+          fyne package -os linux -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -exe ${{ github.workspace }}/dist/parol-linux -icon "${{ github.workspace }}/ui/assets/black_logo.png"
+
+      - name: Upload Build Artifacts
+        if: matrix.os == 'window-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Parol-${{ matrix.os }}
+          path: ${{ github.workspace }}/dist/*
