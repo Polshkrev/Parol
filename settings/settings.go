@@ -32,5 +32,6 @@ type Configuration struct {
 // Settings of the application.
 type Settings struct {
 	Appearance    Appearance    `json:"appearance"`
+	LocaleFolder  string        `json:"localeFolder"`
 	Configuration Configuration `json:"configuration"`
 }
