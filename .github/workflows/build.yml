@@ -8,30 +8,34 @@ on:
 #   workflow_dispatch: # Allows manual triggers
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+  setup:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: '1.26'
+          go-version: '>=1.26'
           cache: true
 
+      - name: Make Dist Folder
+        run: |
+          mkdir dist
+
+  build:
+    needs: setup
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
       - name: Install Linux Dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc libgl1-mesa-dev xorg-dev
-
-      - name: Make Dist Folder
-        run: |
-          mkdir dist
 
       - name: Install Fyne CLI
         run: |
@@ -63,12 +67,8 @@ jobs:
 
   dist:
     runs-on: ubuntu-latest
-
-    needs: build 
+    needs: build
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Download all matrix artifacts
         uses: actions/download-artifact@v4
         with:
