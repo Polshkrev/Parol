@@ -11,7 +11,7 @@ jobs:
   build:
     strategy:
       matrix:
-        target: [linux, windows, darwin]
+        target: [linux, darwin]
         # platform: [ubuntu-latest, windows-latest, darwin-latest]
     runs-on: ubuntu-latest
     steps:
