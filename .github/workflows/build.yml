@@ -75,7 +75,7 @@ jobs:
         run: |
           Move-Item -Path "*/Parol.exe" -Destination dist -Force
           echo "${{ secrets.WINDOWS_CERT_BASE64 }}"
-          echo "${{ secrets.WINDOWS_PASSWORD }}"
+          echo "${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}"
 
 
       - name: Upload Individual Build Artifacts
