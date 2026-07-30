@@ -48,12 +48,13 @@ jobs:
           fyne package -os darwin -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png" -cert macos -profile macos
           mv *.app dist
 
-
       - name: Package with Fyne On Linux
         if: runner.os == 'Linux'
         run: |
           fyne package -os linux -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png"
+          ls
           mv *.gz dist
+
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
