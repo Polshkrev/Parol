@@ -9,6 +9,7 @@ require (
 	github.com/fernet/fernet-go v0.0.0-20240119011108-303da6aec611
 	github.com/kbinani/screenshot v0.0.0-20250624051815-089614a94018
 	github.com/mattn/go-sqlite3 v1.14.47
+	github.com/thiagokokada/dark-mode-go v0.0.2
 )
 
 require (
