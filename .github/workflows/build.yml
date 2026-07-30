@@ -55,6 +55,10 @@ jobs:
           fyne package -os linux -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png"
           mv *.xz dist
 
+  distribute:
+    needs: build # Waits for ALL matrix instances to succeed
+    runs-on: ubuntu-latest
+    steps:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
