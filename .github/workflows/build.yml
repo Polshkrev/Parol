@@ -13,7 +13,7 @@ jobs:
       matrix:
         target: [linux, windows, darwin]
         platform: [ubuntu-latest, windows-latest, darwin-latest]
-    runs-on: ${{ matrix.platform }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
