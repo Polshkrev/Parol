@@ -85,6 +85,8 @@ github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef h1:Ch6Q+AZUxDBCVqd
 github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef/go.mod h1:nXTWP6+gD5+LUJ8krVhhoeHjvHTutPxMYl5SvkcnJNE=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
+github.com/thiagokokada/dark-mode-go v0.0.2 h1:e4TAW4A/VylmlFKL9Jo83xYlu7rqWl+keH6lQO5owio=
+github.com/thiagokokada/dark-mode-go v0.0.2/go.mod h1:IQrRBLMIz8vfFZ/sdZr7ASfW1SpE9TJwUCDbKbG2AQU=
 github.com/trimmer-io/go-csv v1.0.0 h1:s1HhtyBDykRk//Nif5zrhLkBaCKNIizYWORnB8C7esE=
 github.com/trimmer-io/go-csv v1.0.0/go.mod h1:aRhJbR1bXkNiOSXpIsD9XIxBrHFELN0QvTmiphlW3P0=
 github.com/yuin/goldmark v1.8.2 h1:kEGpgqJXdgbkhcOgBxkC0X0PmoPG1ZyoZ117rDVp4zE=
