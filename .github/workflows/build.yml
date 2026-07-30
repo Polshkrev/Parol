@@ -39,12 +39,17 @@ jobs:
           fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
           Move-Item -Path "*/Parol.exe" -Destination dist -Force
 
-      - name: Package with Fyne On Darwin
+      - name: Package with Fyne On Darwin (Apple Silicon)
         if: runner.os == 'macOS'
         run: |
-          fyne package -os darwin -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png" -cert macos -profile macos
-          mv *.app dist
+          GOARCH=arm64 fyne package -os darwin -release -id "com.github.parol" -name "Parol-arm64" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png" -cert macos -profile macos
 
+      - name: Package with Fyne On Darwin (Apple Silicon)
+        if: runner.os == 'macOS'
+        run: |
+          GOARCH=amd64 fyne package -os darwin -release -id "com.github.parol" -name "Parol-amd64" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png" -cert macos -profile macos
+          mv *.app dist
+      
       - name: Package with Fyne On Linux
         if: runner.os == 'Linux'
         run: |
