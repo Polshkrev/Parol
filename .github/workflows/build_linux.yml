@@ -9,11 +9,7 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        target: [linux, darwin]
-        # platform: [ubuntu-latest, windows-latest, darwin-latest]
-    runs-on: ubuntu-latest
+    runs-on: linux-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -28,13 +24,12 @@ jobs:
         run: |
           go install fyne.io/tools/cmd/fyne@latest
           go install github.com/fyne-io/fyne-cross@latest
-
       - name: Build with Fyne-cross
         run: |
-          fyne-cross ${{ matrix.target }} -release -app-id "com.github.parol" -name "myapp" -icon "ui/assets/black_logo.png"
+          fyne-cross linux -release -app-id "com.github.parol" -name "myapp" -icon "ui/assets/black_logo.png"
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Parol-${{ matrix.target }}
-          path: fyne-cross/dist/${{ matrix.target }}/*
+          name: Parol-linux
+          path: fyne-cross/dist/linux/*
