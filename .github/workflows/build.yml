@@ -11,7 +11,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, darwin-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Code
@@ -23,13 +23,19 @@ jobs:
           go-version: '1.26'
           cache: true
 
-      - name: Install Fyne CLI
+      - name: Install Linux Dependencies
+        if: runner.os == 'Linux'
         run: |
-          go install fyne.io/tools/cmd/fyne@latest
+          sudo apt-get update
+          sudo apt-get install -y gcc libgl1-mesa-dev xorg-dev
 
       - name: Make Dist Folder
         run: |
           mkdir dist
+
+      - name: Install Fyne CLI
+        run: |
+          go install fyne.io/tools/cmd/fyne@latest
 
       - name: Package with Fyne On Windows
         if: runner.os == 'Windows'
