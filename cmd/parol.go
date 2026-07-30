@@ -95,6 +95,10 @@ func main() {
 	defer passwords.Close()
 	var configuration *settings.Settings = gopolutils.Must(fayl.ReadObject[settings.Settings](setup.GetSettingsPath()))
 	setTheme(configuration)
+	var except *gopolutils.Exception = setup.Locale(configuration.LocaleFolder)
+	if except != nil {
+		panic(except)
+	}
 	registerApplicationEnd(manager, passwords)
 	if len(flag.Args()) == 0 {
 		var gui *ui.GUI = setup.GUI(passwords, manager, *configuration)
@@ -102,7 +106,7 @@ func main() {
 	} else if len(flag.Args()) == 2 {
 		var key string = flag.Arg(0)
 		var password string = flag.Arg(1)
-		var except *gopolutils.Exception = manager.Insert(key, password)
+		except = manager.Insert(key, password)
 		if (except != nil) && (!except.Is(gopolutils.KeyError)) {
 			panic(except)
 		}
