@@ -32,7 +32,7 @@ jobs:
 
       - name: Build with Fyne-cross
         run: |
-          fyne-cross darwin -macosx-sdk-path=$GITHUB_WORKSPACE/sdk/MacOSX11.3.sdk -release -app-id "com.github.parol" -name "myapp" -icon "ui/assets/black_logo.png"
+          fyne-cross darwin -macosx-sdk-path=$GITHUB_WORKSPACE/sdk/MacOSX11.3.sdk -release -app-id "com.github.parol" -name "Parol" -dir cmd -icon "ui/assets/black_logo.png"
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
