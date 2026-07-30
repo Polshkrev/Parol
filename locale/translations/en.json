@@ -1,0 +1,16 @@
+{
+    "gui.labels.title": "Parol",
+    "gui.labels.header": "Passwords:",
+    "gui.labels.prompts.search": "Search",
+    "gui.labels.addPasswordButton": "Add",
+    "gui.labels.cancelPasswordButton": "Cancel",
+    "gui.labels.prompts.key": "Key",
+    "gui.labels.prompts.password": "Password",
+    "gui.labels.titles.addPassword": "Add Password",
+    "gui.labels.titles.dialog.emptyKey": "Empty Key",
+    "gui.labels.titles.dialog.emptyPassword": "Empty Password",
+    "gui.labels.titles.dialog.duplicateKey": "Duplicate Key",
+    "gui.labels.dialog.emptyKey": "The Key Entry Can Not Be Empty.",
+    "gui.labels.dialog.emptyPassword": "The Password Entry Can Not Be Empty.",
+    "gui.labels.dialog.duplicateKey": "Can not add a duplicate key \"{{.key}}\"."
+}

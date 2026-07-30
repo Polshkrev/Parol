@@ -1,0 +1,16 @@
+{
+    "gui.labels.title": "Пароль",
+    "gui.labels.header": "Пароли:",
+    "gui.labels.prompts.search": "Поиск",
+    "gui.labels.addPasswordButton": "Добавить",
+    "gui.labels.cancelPasswordButton": "Отменить",
+    "gui.labels.prompts.key": "Ключ",
+    "gui.labels.prompts.password": "Пароль",
+    "gui.labels.titles.addPassword": "Добавить пароль",
+    "gui.labels.titles.dialog.emptyKey": "Пустой ключ",
+    "gui.labels.titles.dialog.emptyPassword": "Пустой пароль",
+    "gui.labels.titles.dialog.duplicateKey": "Дубликатный ключ",
+    "gui.labels.dialog.emptyKey": "Ячейка ключа запрещено быть пустым.",
+    "gui.labels.dialog.emptyPassword": "Ячейка пароля запрещено быть пустым.",
+    "gui.labels.dialog.duplicateKey": "Запрещено добавить дубликатный ключ \"{{.key}}\"."
+}
