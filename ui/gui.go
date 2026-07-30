@@ -21,6 +21,11 @@ import (
 	"github.com/kbinani/screenshot"
 )
 
+const (
+	scaleVariable string = "FYNE_SCALE" // Variable to set the window scale.
+	scale         string = ".825"       // Scale of the window.
+)
+
 // Custom GUI.
 type GUI struct {
 	settings  settings.Settings
@@ -158,7 +163,7 @@ func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Fo
 func getWindowSize(configuration settings.Configuration) fyne.Size {
 	var bounds image.Rectangle = screenshot.GetDisplayBounds(0)
 	if bounds.Dx() > 1920 && bounds.Dx() > 1080 {
-		environment.Set("FYNE_SCALE", ".825")
+		environment.Set(scaleVariable, scale)
 	}
 	return fyne.NewSize(float32(configuration.Width), float32(configuration.Height))
 }
