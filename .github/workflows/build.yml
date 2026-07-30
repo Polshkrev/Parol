@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         target: [linux, windows, darwin]
-        platform: [ubuntu-latest, windows-latest, darwin-latest]
+        # platform: [ubuntu-latest, windows-latest, darwin-latest]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
