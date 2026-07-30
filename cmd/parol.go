@@ -95,7 +95,7 @@ func main() {
 	defer passwords.Close()
 	var configuration *settings.Settings = gopolutils.Must(fayl.ReadObject[settings.Settings](setup.GetSettingsPath()))
 	setTheme(configuration)
-	var except *gopolutils.Exception = setup.Locale(configuration.LocaleFolder)
+	var except *gopolutils.Exception = setup.Locale(fayl.PathFrom(configuration.LocaleFolder))
 	if except != nil {
 		panic(except)
 	}
