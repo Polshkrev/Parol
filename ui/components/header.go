@@ -1,6 +1,8 @@
 package components
 
 import (
+	"strings"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
@@ -38,8 +40,38 @@ func (header Header) Parent() *fyne.Container {
 	return header.parent
 }
 
+// Default callback for searching for a card.
+func searchCallback(value string, cardParent *fyne.Container) {
+	var i int
+	for i = range cardParent.Objects {
+		var object *Card
+		var ok bool
+		object, ok = cardParent.Objects[i].(*Card)
+		if !ok {
+			continue
+		} else if strings.Contains(object.Key(), strings.ToLower(value)) {
+			object.Show()
+		} else {
+			object.Hide()
+		}
+	}
+	cardParent.Refresh()
+}
+
+// Paint the search bar.
+// Returns the canvas object containing the search bar.
+func paintSearch(cardParent *fyne.Container) fyne.CanvasObject {
+	var search *Entry = NewEntry("Search", false, false, nil, nil)
+	search.Wrapping = fyne.TextWrapOff
+	search.Scroll = container.ScrollHorizontalOnly
+	search.OnChanged = func(value string) { searchCallback(value, cardParent) }
+	var item *Item = NewItem(search)
+	var searchContainer *fyne.Container = container.NewCenter(container.NewGridWrap(fyne.NewSize(250, 35), item.Object()))
+	return searchContainer
+}
+
 // Paint the header.
-func (header *Header) Paint(*fyne.Container) {
+func (header *Header) Paint(cardParent *fyne.Container) {
 	var frame *fyne.Container = container.New(layout.NewGridWrapLayout(fyne.NewSize(float32(header.width), float32(header.height))), header.button)
-	header.SetParent((container.NewBorder(nil, widget.NewSeparator(), container.NewCenter(header.label), container.NewPadded(frame))))
+	header.SetParent((container.NewBorder(nil, widget.NewSeparator(), container.NewCenter(header.label), container.NewPadded(frame), paintSearch(cardParent))))
 }

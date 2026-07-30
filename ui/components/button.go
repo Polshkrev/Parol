@@ -36,6 +36,16 @@ func (button *Button) Cursor() desktop.Cursor {
 	return desktop.PointerCursor
 }
 
+// Typed key event override.
+func (button *Button) TypedKey(event *fyne.KeyEvent) {
+	if event.Name != fyne.KeyReturn {
+		button.Button.TypedKey(event)
+	} else if button.callback == nil {
+		return
+	}
+	button.callback()
+}
+
 // Make the default callback used in the button.
 // Returns the default callback to use with the button.
 func makeDefaultCallback(content string) Callback {

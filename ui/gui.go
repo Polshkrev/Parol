@@ -83,7 +83,7 @@ func paint(gui *GUI) *fyne.Container {
 	})
 	var label *widget.Label = widget.NewLabelWithStyle("Passwords:", fyne.TextAlignTrailing, fyne.TextStyle{Bold: true})
 	var header *components.Header = components.NewHeader(label, button, gui.settings.Configuration.Header.Width, gui.settings.Configuration.Header.Height)
-	header.Paint(nil)
+	header.Paint(content)
 	return container.NewBorder(header.Parent(), nil, nil, nil, container.NewVScroll(content))
 }
 
@@ -93,14 +93,15 @@ func paintAddForm(gui *GUI, cardParent *fyne.Container, title string, appearance
 	var form *components.Form
 	form = components.NewForm("Add Password", "Add", "Cancel", 300, 300, nil, onFormCancel(formWindow))
 	form.SetParent(&formWindow)
-	form.Append(components.NewItem(components.NewEntry("Key", false, false, func(s string) error { return nil })))
-	form.Append(components.NewItem(components.NewEntry("Password", true, true, func(s string) error { return nil })))
-	form.SetSubmitCallBack(registerAddFormSubmit(cardParent, form, appearance))
+	var callback components.Callback = registerAddFormSubmit(gui, cardParent, form, appearance)
+	form.Append(components.NewItem(components.NewEntry("Key", false, false, func(string) error { return nil }, callback)))
+	form.Append(components.NewItem(components.NewEntry("Password", true, true, func(string) error { return nil }, callback)))
+	form.SetSubmitCallBack(callback)
 	form.Paint(nil)
 }
 
 // Paint the information dialog based on a title and message.
-func paintInformation(title, message string, width, height uint16) {
+func paintError(title, message string, width, height uint16) {
 	var parent fyne.Window = fyne.CurrentApp().NewWindow(title)
 	var information dialog.Dialog = dialog.NewInformation(title, message, parent)
 	information.SetOnClosed(func() {
@@ -132,15 +133,18 @@ func getFormItems(form *components.Form) *collections.Pair[*components.Item, *co
 
 // Setup the logic for submitting a form.
 // Returns a callback triggered when the form is submitted.
-func registerAddFormSubmit(parent *fyne.Container, form *components.Form, appearance settings.Appearance) components.Callback {
+func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Form, appearance settings.Appearance) components.Callback {
 	return func() {
 		var items *collections.Pair[*components.Item, *components.Item] = getFormItems(form)
 		var card *components.Card = components.NewCard((*items.First()).Value(), (*items.Second()).Value(), appearance)
 		if len(card.Key()) == 0 {
-			paintInformation("Empty Key", "The Key Entry Can Not Be Empty.", 400, 150)
+			paintError("Empty Key", "The Key Entry Can Not Be Empty.", 400, 150)
 			return
 		} else if len(card.Password()) == 0 {
-			paintInformation("Empty Password", "The Password Entry Can Not Be Empty.", 400, 150)
+			paintError("Empty Password", "The Password Entry Can Not Be Empty.", 400, 150)
+			return
+		} else if gui.parol.HasKey(card.Key()) {
+			paintError("Duplicate Key", "Can not add a duplicate key.", 400, 150)
 			return
 		}
 		card.Paint(parent)
