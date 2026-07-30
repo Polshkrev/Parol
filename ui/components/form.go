@@ -1,14 +1,21 @@
 package components
 
 import (
+	"strings"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/lang"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	"github.com/Polshkrev/gopolutils"
 	"github.com/Polshkrev/gopolutils/collections"
+)
+
+const (
+	enCode string = "en" // Code to check if the system locale is `english`.
 )
 
 // Type alias for a form callback.
@@ -92,10 +99,15 @@ func (form *Form) Objects() []fyne.CanvasObject {
 
 // Paint a form item.
 func (form *Form) Paint(*fyne.Container) {
-	var submitButton *Button = NewButton("Add", theme.ConfirmIcon(), form.submitCallback)
-	var cancelButton *Button = NewButton("Cancel", theme.CancelIcon(), form.cancelCallback)
+	var submitButton *Button = NewButton(form.submitText, theme.ConfirmIcon(), form.submitCallback)
+	var cancelButton *Button = NewButton(form.cancelText, theme.CancelIcon(), form.cancelCallback)
 	submitButton.Importance = widget.HighImportance
-	var box *fyne.Container = container.NewBorder(layout.NewSpacer(), layout.NewSpacer(), container.NewGridWrap(fyne.NewSize(85, 40), cancelButton), container.NewGridWrap(fyne.NewSize(75, 40), submitButton))
+	var box *fyne.Container
+	if !strings.Contains(lang.SystemLocale().String(), enCode) {
+		box = container.NewBorder(layout.NewSpacer(), layout.NewSpacer(), container.NewGridWrap(fyne.NewSize(100, 40), cancelButton), container.NewGridWrap(fyne.NewSize(100, 40), submitButton))
+	} else {
+		box = container.NewBorder(layout.NewSpacer(), layout.NewSpacer(), container.NewGridWrap(fyne.NewSize(85, 40), cancelButton), container.NewGridWrap(fyne.NewSize(75, 40), submitButton))
+	}
 	var buttons *fyne.Container = container.NewCenter(box)
 	var entries *fyne.Container = container.NewVBox(form.Objects()...)
 	var object *fyne.Container = container.NewVBox(entries, buttons)

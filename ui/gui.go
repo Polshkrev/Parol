@@ -6,6 +6,7 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/lang"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
@@ -84,9 +85,9 @@ func paint(gui *GUI) *fyne.Container {
 	var content *fyne.Container = container.New(layout.NewGridWrapLayout(gridSize))
 	gui.setup(content)
 	var button *components.Button = components.NewButton("", theme.ContentAddIcon(), func() {
-		paintAddForm(gui, content, "Add Password", gui.settings.Appearance)
+		paintAddForm(gui, content, lang.L("gui.labels.titles.addPassword"), gui.settings.Appearance)
 	})
-	var label *widget.Label = widget.NewLabelWithStyle("Passwords:", fyne.TextAlignTrailing, fyne.TextStyle{Bold: true})
+	var label *widget.Label = widget.NewLabelWithStyle(lang.L("gui.labels.header"), fyne.TextAlignTrailing, fyne.TextStyle{Bold: true})
 	var header *components.Header = components.NewHeader(label, button, gui.settings.Configuration.Header.Width, gui.settings.Configuration.Header.Height)
 	header.Paint(content)
 	return container.NewBorder(header.Parent(), nil, nil, nil, container.NewVScroll(content))
@@ -96,11 +97,11 @@ func paint(gui *GUI) *fyne.Container {
 func paintAddForm(gui *GUI, cardParent *fyne.Container, title string, appearance settings.Appearance) {
 	var formWindow fyne.Window = fyne.CurrentApp().NewWindow(title)
 	var form *components.Form
-	form = components.NewForm("Add Password", "Add", "Cancel", 300, 300, nil, onFormCancel(formWindow))
+	form = components.NewForm(lang.L("gui.labels.titles.addPassword"), lang.L("gui.labels.addPasswordButton"), lang.L("gui.labels.cancelPasswordButton"), 300, 300, nil, onFormCancel(formWindow))
 	form.SetParent(&formWindow)
 	var callback components.Callback = registerAddFormSubmit(gui, cardParent, form, appearance)
-	form.Append(components.NewItem(components.NewEntry("Key", false, false, func(string) error { return nil }, callback)))
-	form.Append(components.NewItem(components.NewEntry("Password", true, true, func(string) error { return nil }, callback)))
+	form.Append(components.NewItem(components.NewEntry(lang.L("gui.labels.prompts.key"), false, false, func(s string) error { return nil }, callback)))
+	form.Append(components.NewItem(components.NewEntry(lang.L("gui.labels.prompts.password"), true, true, func(s string) error { return nil }, callback)))
 	form.SetSubmitCallBack(callback)
 	form.Paint(nil)
 }
@@ -143,13 +144,13 @@ func registerAddFormSubmit(gui *GUI, parent *fyne.Container, form *components.Fo
 		var items *collections.Pair[*components.Item, *components.Item] = getFormItems(form)
 		var card *components.Card = components.NewCard((*items.First()).Value(), (*items.Second()).Value(), appearance)
 		if len(card.Key()) == 0 {
-			paintError("Empty Key", "The Key Entry Can Not Be Empty.", 400, 150)
+			paintError(lang.L("gui.labels.titles.dialog.emptyKey"), "The Key Entry Can Not Be Empty.", 400, 150)
 			return
 		} else if len(card.Password()) == 0 {
-			paintError("Empty Password", "The Password Entry Can Not Be Empty.", 400, 150)
+			paintError(lang.L("gui.labels.titles.dialog.emptyKey"), "The Password Entry Can Not Be Empty.", 400, 150)
 			return
 		} else if gui.parol.HasKey(card.Key()) {
-			paintError("Duplicate Key", "Can not add a duplicate key.", 400, 150)
+			paintError(lang.L("gui.labels.titles.dialog.duplicateKey"), lang.L("gui.labels.dialog.duplicateKey", map[string]string{"key": card.Key()}), 400, 150)
 			return
 		}
 		card.Paint(parent)
