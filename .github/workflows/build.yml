@@ -57,17 +57,23 @@ jobs:
           fyne package -os linux -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png"
           mv *.xz dist
 
-      - name: Decode Certificate
-        if: runner.os == 'Windows'
-        run: |
-          $certBytes = [System.Convert]::FromBase64String("${{ secrets.WINDOWS_CERTIFICATE }}")
-          [System.IO.File]::WriteAllBytes("$env:TEMP\certificate.pfx", $certBytes)
-
       - name: Sign Executable
         if: runner.os == 'Windows'
+        uses: skymatic/code-sign-action@v1
+        with:
+          certificate: ${{ secrets.WINDOWS_CERTIFICATE }}
+          password: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+          certificatesha1: ${{ secrets.WINDOWS_CERT_SHA1 }}
+          certificatename: ${{ secrets.WINDOWS_CERT_NAME }}
+          folder: '.'
+          recursive: false
+          description: 'Password Manager.'
+          timestampUrl: 'http://timestamp.digicert.com'
+
+      - name: Move Artifact
+        if: runner.os == 'Windows'
         run: |
-            "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f "$env:TEMP\certificate.pfx" /p "${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}" /tr http://digicert.com /td sha256 /fd sha256 Parol.exe
-            Move-Item -Path "*/Parol.exe" -Destination dist -Force
+          Move-Item -Path "*/Parol.exe" -Destination dist -Force
 
       - name: Upload Individual Build Artifacts
         uses: actions/upload-artifact@v4
