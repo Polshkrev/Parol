@@ -60,11 +60,13 @@ jobs:
       - name: Sign Executable
         if: runner.os == 'Windows'
         uses: skymatic/code-sign-action@v1
+        env:
+          WINDOWS_CERT_BASE64: ${{ secrets.WINDOWS_CERT_BASE64 }}
         with:
-          certificate: ${{ secrets.WINDOWS_CERT_BASE64 }}
+          certificate: $WINDOWS_CERT_BASE64
           password: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
           certificatesha1: ${{ secrets.WINDOWS_CERT_SHA1 }}
-          certificatename: ${{ secrets.WINDOWS_CERT_NAME }}
+          certificatename: ${{ secrets.GITHUB_TOKEN }}
           folder: '.'
           recursive: false
           description: 'Password Manager.'
