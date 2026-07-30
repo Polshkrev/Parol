@@ -1,0 +1,16 @@
+name: Pipeline
+
+on:
+  push:
+    branches: [ main, dev ]
+#   pull_request:
+#     branches: [ main, dev ]
+#   workflow_dispatch: # Allows manual triggers
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  dist:
+    needs: build
+    uses: ./.github/workflows/dist.yml
