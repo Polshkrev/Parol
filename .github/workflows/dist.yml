@@ -1,0 +1,28 @@
+name: Distribute
+
+on:
+#   push:
+#     branches: [ main, dev ]
+#   pull_request:
+#     branches: [ main, dev ]
+  workflow_call: # Allows manual triggers
+
+jobs:
+  dist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Download Individual Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: Parol-*
+          path: dist/
+          merge-multiple: true
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Parol
+          path: dist/
