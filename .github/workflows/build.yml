@@ -54,7 +54,8 @@ jobs:
         run: |
           fyne package -os linux -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png"
           mv *.xz dist
-      - name: Upload Build Artifacts
+
+      - name: Upload Individual Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Parol-${{ matrix.os }}
@@ -72,12 +73,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: Parol-*
-          path: combined-outputs
+          path: dist/
           merge-multiple: true
 
-      # 3. Upload everything together as a single final artifact
-      - name: Upload consolidated final artifact
+      - name: Upload All Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Parol
-          path: dist
+          path: dist/
