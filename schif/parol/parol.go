@@ -86,6 +86,12 @@ func (parol *Parol) Remove(key string) *gopolutils.Exception {
 	return parol.passwords.Remove(key)
 }
 
+// Determine if the given key exists within the mapping.
+// Returns true if the mapping contains the given key.
+func (parol Parol) HasKey(key string) bool {
+	return parol.passwords.HasKey(key)
+}
+
 // Encrypt a given password using a given key.
 // Returns a slice of bytes containing the encrypted password.
 // If the password can not be encrypted, a [gopolutils.ValueError] is returned with a nil data pointer.
