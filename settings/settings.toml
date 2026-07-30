@@ -1,4 +1,5 @@
 appearance = "light"
+localeFolder = "translations"
 
 [configuration]
 title = "Parol"
