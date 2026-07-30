@@ -4,6 +4,7 @@ import (
 	"github.com/Polshkrev/gopolutils"
 	"github.com/Polshkrev/gopolutils/fayl"
 	"github.com/Polshkrev/parol/settings"
+	"github.com/Polshkrev/parol/ui"
 )
 
 // Setup the folders used by the application.
@@ -21,22 +22,22 @@ func Configuration(name string) *gopolutils.Exception {
 		return except
 	}
 	var copyBlackPath *fayl.Path = assetFolder.JoinAs(copyBlackIcon)
-	except = fayl.Write(copyBlackPath, copyImageDarkBytes)
+	except = fayl.Write(copyBlackPath, ui.BlackCopy)
 	if except != nil {
 		return except
 	}
 	var copyWhitePath *fayl.Path = assetFolder.JoinAs(copyWhiteIcon)
-	except = fayl.Write(copyWhitePath, copyImageWhiteBytes)
+	except = fayl.Write(copyWhitePath, ui.WhiteCopy)
 	if except != nil {
 		return except
 	}
 	var blackFile *fayl.Path = assetFolder.JoinAs(blackLogo)
-	except = fayl.Write(blackFile, blackLogoBytes)
+	except = fayl.Write(blackFile, ui.BlackLogo)
 	if except != nil {
 		return except
 	}
 	var whiteFile *fayl.Path = assetFolder.JoinAs(whiteLogo)
-	except = fayl.Write(whiteFile, whiteLogoBytes)
+	except = fayl.Write(whiteFile, ui.WhiteLogo)
 	if except != nil {
 		return except
 	}
