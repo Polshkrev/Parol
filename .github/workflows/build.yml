@@ -38,7 +38,7 @@ jobs:
         env:
           CGO_ENABLED: 1
         run: |
-          fyne package -os windows -release -id "com.github.polshkrev.parol" -name "Parol" -exe ${{ github.workspace }}\bin\Parol.exe -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert Polshkrev
+          fyne package -os windows -release -id "com.github.polshkrev.parol" -name "Parol" -exe ${{ github.workspace }}\bin\Parol.exe -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png"
           Move-Item -Path "*/Parol.exe" -Destination dist -Force
 
       - name: Package with Fyne On Darwin (Apple Silicon)
