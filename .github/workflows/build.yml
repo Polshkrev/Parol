@@ -38,7 +38,8 @@ jobs:
         env:
           CGO_ENABLED: 1
         run: |
-          fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png"
+          fyne package -os windows -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}\cmd -icon "${{ github.workspace }}\ui\assets\black_logo.png" -cert windows
+          Move-Item -Path "*/Parol.exe" -Destination dist -Force
 
       - name: Package with Fyne On Darwin (Apple Silicon)
         if: runner.os == 'macOS'
@@ -56,25 +57,6 @@ jobs:
         run: |
           fyne package -os linux -release -id "com.github.parol" -name "Parol" -src ${{ github.workspace }}/cmd -icon "${{ github.workspace }}/ui/assets/black_logo.png"
           mv *.xz dist
-
-      - name: Sign Executable
-        if: runner.os == 'Windows'
-        uses: skymatic/code-sign-action@v1
-        with:
-          certificate: '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'
-          password: signPassword
-          certificatesha1: '0416302AB274F2F22BD13482CAFF74E8E554C8A6'
-          certificatename: 'Polshkrev'
-          folder: '.'
-          recursive: false
-          description: 'Password Manager.'
-          timestampUrl: 'http://timestamp.digicert.com'
-
-      - name: Move Artifact
-        if: runner.os == 'Windows'
-        run: |
-          Move-Item -Path "*/Parol.exe" -Destination dist -Force
-
 
       - name: Upload Individual Build Artifacts
         uses: actions/upload-artifact@v4
